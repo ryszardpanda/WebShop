@@ -1,15 +1,18 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import enums.*;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        Computer computer = new Computer(1, "Laptop", 3000.00, 10);
+        computer.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
+        computer.displayDetails();
+
+        Smartphone smartphone = new Smartphone(2, "Smartphone", 1200.00, 20);
+        smartphone.configureSmartphone(Color.BLACK, BatteryCapacity.BATTERY_4000MAH, Accessories.CASE);
+        smartphone.displayDetails();
+
+        Electronics electronics = new Electronics(3, "Odkurzacz", 300, 10);
+        electronics.displayDetails();
     }
+
 }
