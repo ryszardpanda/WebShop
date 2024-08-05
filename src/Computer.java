@@ -27,4 +27,13 @@ public class Computer extends Product{
         super.displayDetails();
         System.out.println("Procesor: " + processor + ", RAM: " + ram + "GB, Dysk: " + storage + "GB");
     }
+
+    @Override
+    public String toString() {
+        return "Computer{" +
+                "processor=" + processor +
+                ", ram=" + ram +
+                ", storage=" + storage +
+                '}';
+    }
 }

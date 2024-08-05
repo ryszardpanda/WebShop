@@ -1,9 +1,5 @@
 import enums.*;
 
-import Product.Computer;
-import Product.Electronics;
-import Product.Product;
-import Product.Smartphone;
 import enums.*;
 
 import java.util.Optional;
@@ -23,12 +19,12 @@ public class Main {
 
         Electronics electronics = new Electronics(3, "Odkurzacz", 300, 10);
         electronics.displayDetails();
-        Computer computer = new Computer(1, "Laptop", 3000.00, 10);
-        computer.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
+        Computer computer1 = new Computer(1, "Laptop", 3000.00, 10);
+        computer1.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
 
 
-        Smartphone smartphone = new Smartphone(2, "Smartphone", 1200.00, 20);
-        smartphone.configureSmartphone(Color.BLACK, BatteryCapacity.BATTERY_4000MAH, Accessories.CASE);
+        Smartphone smartphone1 = new Smartphone(2, "Smartphone", 1200.00, 20);
+        smartphone1.configureSmartphone(Color.BLACK, BatteryCapacity.BATTERY_4000MAH, Accessories.CASE);
 
 
         Electronics odkurzacz = new Electronics(3, "Odkurzacz", 300, 10);

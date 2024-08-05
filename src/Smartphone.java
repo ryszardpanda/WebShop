@@ -29,4 +29,13 @@ public class Smartphone extends Product{
         super.displayDetails();
         System.out.println("Kolor: " + color + ", Bateria: " + batteryCapacity + ", Akcesoria: " + accessories);
     }
+
+    @Override
+    public String toString() {
+        return "Smartphone{" +
+                "color=" + color +
+                ", batteryCapacity=" + batteryCapacity +
+                ", accessories=" + accessories +
+                '}';
+    }
 }
