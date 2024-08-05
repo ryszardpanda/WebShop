@@ -70,4 +70,14 @@ public class Product {
     public void displayDetails() {
         System.out.println("Produkt: " + name + ", Cena: " + price + ", Dostępna ilość: " + availableQuantity);
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", availableQuantity=" + availableQuantity +
+                '}';
+    }
 }
