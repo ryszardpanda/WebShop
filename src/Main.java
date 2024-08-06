@@ -8,6 +8,8 @@ public class Main {
     public static void main(String[] args) {
 
         ProductManager productManager = new ProductManager();
+        Cart cart = new Cart();
+        Customer customer1 = new Customer("Jarek Talarek", "talarek@op.pl", "ul. Przykładowa 10, 00-001 Warszawa");
 
         Computer computer = new Computer(1, "Laptop", 3000.00, 10);
         computer.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
@@ -54,6 +56,26 @@ public class Main {
 
         Optional<Product> productById = productManager.findProductById(3);
         System.out.println(productById.get());
+
+        System.out.println("--------------------------------------------");
+
+        cart.addProductToCart(computer1);
+        cart.addProductToCart(smartphone1);
+
+        System.out.println("--------------------------------------------");
+
+        cart.viewProductsInCart();
+
+        System.out.println("--------------------------------------------");
+
+        cart.placeOrder(customer1);
+
+        System.out.println("--------------------------------------------");
+
+        cart.viewOrders();
+
+        System.out.println("--------------------------------------------");
+
 
     }
 }
