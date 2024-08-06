@@ -5,10 +5,12 @@ import java.util.Optional;
 public class Cart {
     List<Product> cart;
     List<Order> orders;
+    private OrdersProcessor orderProcessor;
 
     public Cart() {
         this.cart = new ArrayList<>();
         this.orders = new ArrayList<>();
+        this.orderProcessor = new OrdersProcessor();
     }
 
     //dodawanie produktu do koszyka
@@ -53,6 +55,7 @@ public class Cart {
             order.displayOrderDetails();
             cart.clear();
             System.out.println("Zamówienie zostało złożonę i zapisane");
+            orderProcessor.processOrder(order);
         }
     }
 

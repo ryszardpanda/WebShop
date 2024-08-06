@@ -1,0 +1,11 @@
+Faktura dla zamówienia o ID: 51e9ed9d-f3ea-4aff-b206-24aac5abe105
+Adres: ul. Przykładowa 10, 00-001 Warszawa
+Email: talarek@op.pl
+===================================
+Produkty:
+- Laptop: 3000.0 PLN
+- Smartphone: 1200.0 PLN
+===================================
+Łączna kwota: 4200.0 PLN
+===================================
+Dziękujemy za zakupy!
