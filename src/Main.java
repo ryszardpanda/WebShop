@@ -10,6 +10,8 @@ public class Main {
         ProductManager productManager = new ProductManager();
         Cart cart = new Cart();
         Customer customer1 = new Customer("Jarek Talarek", "talarek@op.pl", "ul. Przykładowa 10, 00-001 Warszawa");
+        OrdersProcessor ordersProcessor = new OrdersProcessor();
+
 
         Computer computer = new Computer(1, "Laptop", 3000.00, 10);
         computer.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
@@ -74,7 +76,10 @@ public class Main {
 
         cart.viewOrders();
 
-        System.out.println("--------------------------------------------");
+//        System.out.println("--------------------------------------------");
+//
+//        cart.placeOrder(customer1);
+
 
 
     }

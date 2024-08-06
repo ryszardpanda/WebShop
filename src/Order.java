@@ -20,6 +20,10 @@ public class Order {
                 .sum();
     }
 
+    public List<Product> getProducts() {
+        return orders;
+    }
+
     public String getOrderId() {
         return orderId;
     }
