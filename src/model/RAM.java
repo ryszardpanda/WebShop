@@ -1,4 +1,4 @@
-package enums;
+package model;
 
 public enum RAM {
     RAM_8GB,

@@ -1,14 +1,10 @@
-//**Typ Produktu: Smartfon**
+package model;//**Typ Produktu: Smartfon**
 //
 //Specyficzna Obsługa: Dodanie funkcji umożliwiającej wybór koloru, pojemności baterii,
 // oraz dodatkowych akcesoriów przy zakupie smartfona.
 //
 
-import enums.Accessories;
-import enums.BatteryCapacity;
-import enums.Color;
-
-public class Smartphone extends Product{
+public class Smartphone extends Product {
     private Color color;
     private BatteryCapacity batteryCapacity;
     private Accessories accessories;
@@ -32,7 +28,7 @@ public class Smartphone extends Product{
 
     @Override
     public String toString() {
-        return "Smartphone{" +
+        return "model.Smartphone{" +
                 "color=" + color +
                 ", batteryCapacity=" + batteryCapacity +
                 ", accessories=" + accessories +

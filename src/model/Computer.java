@@ -1,12 +1,9 @@
-//**Typ Produktu: Komputer**
+package model;//**Typ Produktu: Komputer**
 //
 //**Specyficzna Obsługa**: Implementacja funkcji umożliwiającej konfigurację specyfikacji laptopa/komputera przed dodaniem
 // do koszyka, takiej jak wybór procesora, ilości RAM, itp.
 
-import enums.Processor;
-import enums.RAM;
-
-public class Computer extends Product{
+public class Computer extends Product {
     private Processor processor;
     private RAM ram;
     private int storage;
@@ -30,7 +27,7 @@ public class Computer extends Product{
 
     @Override
     public String toString() {
-        return "Computer{" +
+        return "model.Computer{" +
                 "processor=" + processor +
                 ", ram=" + ram +
                 ", storage=" + storage +

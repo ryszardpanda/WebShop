@@ -1,9 +1,15 @@
+package service;
+
+import model.Customer;
+import model.Order;
+import model.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class Cart {
-    List<Product> cart;
+    public List<Product> cart;
     List<Order> orders;
     private OrdersProcessor orderProcessor;
 
