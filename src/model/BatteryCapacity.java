@@ -1,4 +1,4 @@
-package enums;
+package model;
 
 public enum BatteryCapacity {
     BATTERY_3000MAH,

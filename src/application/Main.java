@@ -1,6 +1,10 @@
-import enums.*;
+package application;
 
-import enums.*;
+import model.*;
+import service.Cart;
+import service.OrdersProcessor;
+import service.ProductManager;
+import ui.CommandLineInterface;
 
 import java.util.Optional;
 
@@ -17,7 +21,7 @@ public class Main {
         computer.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
         computer.displayDetails();
 
-        Smartphone smartphone = new Smartphone(2, "Smartphone", 1200.00, 20);
+        Smartphone smartphone = new Smartphone(2, "model.Smartphone", 1200.00, 20);
         smartphone.configureSmartphone(Color.BLACK, BatteryCapacity.BATTERY_4000MAH, Accessories.CASE);
         smartphone.displayDetails();
 
@@ -27,7 +31,7 @@ public class Main {
         computer1.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
 
 
-        Smartphone smartphone1 = new Smartphone(2, "Smartphone", 1200.00, 20);
+        Smartphone smartphone1 = new Smartphone(2, "model.Smartphone", 1200.00, 20);
         smartphone1.configureSmartphone(Color.BLACK, BatteryCapacity.BATTERY_4000MAH, Accessories.CASE);
 
 
@@ -70,15 +74,18 @@ public class Main {
 
         System.out.println("--------------------------------------------");
 
-        cart.placeOrder(customer1);
-
-        System.out.println("--------------------------------------------");
-
-        cart.viewOrders();
+//        cart.placeOrder(customer1);
+//
+//        System.out.println("--------------------------------------------");
+//
+//        cart.viewOrders();
 
 //        System.out.println("--------------------------------------------");
 //
 //        cart.placeOrder(customer1);
+
+        CommandLineInterface ui = new CommandLineInterface(productManager, cart, ordersProcessor);
+        ui.start();
 
 
 

@@ -1,5 +1,5 @@
-////**Wymagania Biznesowe**
-////**Task 1**: Stworzenie klasy Product reprezentującej produkt z polami takimi jak id, nazwa, cena, ilość dostępna. - DONE
+package model;////**Wymagania Biznesowe**
+////**Task 1**: Stworzenie klasy model.Product reprezentującej produkt z polami takimi jak id, nazwa, cena, ilość dostępna. - DONE
 //W sklepie internetowym sprzedawane będą produkty będące elektroniką:
 //
 //**Typ Produktu: Komputer**
@@ -13,7 +13,7 @@
 // oraz dodatkowych akcesoriów przy zakupie smartfona. - DONE
 //
 //**Dla pozostałych produktów, które będą sprzedawane w sklepie typem produktu będzie po prostu:
-// Electronics i dla produktów o tym typie nie ma żadnej dodatkowej obsługi!!!** - DONE
+// model.Electronics i dla produktów o tym typie nie ma żadnej dodatkowej obsługi!!!** - DONE
 //
 //**CEL:**
 //Dostosowanie obsługi różnych typów produktów pozwala na lepsze spełnienie oczekiwań klientów.
@@ -73,7 +73,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "model.Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
