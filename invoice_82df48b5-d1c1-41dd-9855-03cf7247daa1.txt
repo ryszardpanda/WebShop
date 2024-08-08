@@ -1,0 +1,11 @@
+Faktura dla zamówienia o ID: 82df48b5-d1c1-41dd-9855-03cf7247daa1
+Godzina złożenia zamówienia: 2024-08-08T20:56:23.729027
+Adres: aa
+Email: aa
+===================================
+Produkty:
+- model.Smartphone: 1200.0 PLN
+===================================
+Łączna kwota: 1200.0 PLN
+===================================
+Dziękujemy za zakupy!

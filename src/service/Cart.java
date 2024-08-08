@@ -4,6 +4,7 @@ import model.Customer;
 import model.Order;
 import model.Product;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -61,6 +62,7 @@ public class Cart {
             order.displayOrderDetails();
             cart.clear();
             System.out.println("Zamówienie zostało złożonę i zapisane");
+            System.out.println("Godzina złożenia zamówienia: " + order.getOrderTime());
             orderProcessor.processOrder(order);
         }
     }
@@ -70,7 +72,12 @@ public class Cart {
             System.out.println("Brak złożonych zamówień.");
         } else {
             System.out.println("Lista złożonych zamówień:");
-            orders.forEach(Order::displayOrderDetails);
+            for (Order order : orders) {
+                System.out.println("Zamówienie złożone dnia: " + order.getOrderTime());
+                order.displayOrderDetails();
+                System.out.println("--------------------------------------------");
+            }
+
         }
     }
 }

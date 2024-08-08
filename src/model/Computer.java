@@ -27,10 +27,11 @@ public class Computer extends Product {
 
     @Override
     public String toString() {
-        return "model.Computer{" +
-                "processor=" + processor +
+        return "Computer{" +
+                "name='" + getName() + '\'' +
+                ", processor=" + processor +
                 ", ram=" + ram +
-                ", storage=" + storage +
+                ", storage=" + storage + "GB" +
                 '}';
     }
 }
