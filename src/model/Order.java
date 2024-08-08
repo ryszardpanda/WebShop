@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,12 +9,14 @@ public class Order {
     private Customer customer;
     private List<Product> orders;
     private double totalAmount;
+    private LocalDateTime orderTime;
 
     public Order(Customer customer, List<Product> orders) {
         this.orderId = UUID.randomUUID().toString();
         this.customer = customer;
         this.orders = orders;
         this.totalAmount = calculateTotalAmount();
+        this.orderTime = LocalDateTime.now();
     }
 
     private double calculateTotalAmount(){
@@ -40,6 +43,10 @@ public class Order {
 
     public double getTotalAmount() {
         return totalAmount;
+    }
+
+    public LocalDateTime getOrderTime() {
+        return orderTime;
     }
 
     public void displayOrderDetails() {

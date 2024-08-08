@@ -68,16 +68,15 @@ public class Product {
     }
 
     public void displayDetails() {
-        System.out.println("Produkt: " + name + ", Cena: " + price + ", Dostępna ilość: " + availableQuantity);
+        System.out.println("Produkt: " + name + ", Cena: " + price + " ID " + id);
     }
 
     @Override
     public String toString() {
-        return "model.Product{" +
+        return "Produkt" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", availableQuantity=" + availableQuantity +
                 '}';
     }
 }

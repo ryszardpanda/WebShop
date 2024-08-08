@@ -6,6 +6,7 @@ import model.Product;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrdersProcessor {
@@ -20,6 +21,7 @@ public class OrdersProcessor {
         try {
             PrintWriter writer = new PrintWriter(new FileWriter(invoiceFileName));
             writer.println("Faktura dla zamówienia o ID: " + order.getOrderId());
+            writer.println("Godzina złożenia zamówienia: "+ order.getOrderTime());
             writer.println("Adres: " + order.getCustomer().getAdress());
             writer.println("Email: " + order.getCustomer().getEmail());
             writer.println("===================================");

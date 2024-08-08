@@ -28,8 +28,9 @@ public class Smartphone extends Product {
 
     @Override
     public String toString() {
-        return "model.Smartphone{" +
-                "color=" + color +
+        return "Smartphone{" +
+                super.toString() +
+                ", color=" + color +
                 ", batteryCapacity=" + batteryCapacity +
                 ", accessories=" + accessories +
                 '}';
