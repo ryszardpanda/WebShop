@@ -3,12 +3,14 @@ package model;//**Typ Produktu: Komputer**
 //**Specyficzna Obsługa**: Implementacja funkcji umożliwiającej konfigurację specyfikacji laptopa/komputera przed dodaniem
 // do koszyka, takiej jak wybór procesora, ilości RAM, itp.
 
+import java.math.BigDecimal;
+
 public class Computer extends Product {
     private Processor processor;
     private RAM ram;
     private int storage;
 
-    public Computer(int id, String name, double price, int availableQuantity) {
+    public Computer(int id, String name, BigDecimal price, int availableQuantity) {
         super(id, name, price, availableQuantity);
     }
 
@@ -16,7 +18,7 @@ public class Computer extends Product {
         this.processor = processor;
         this.ram = ram;
         this.storage = storage;
-        System.out.println("Skonfigurowano komputer: Procesor: " + processor + ", RAM: " + ram + "GB, Dysk: " + storage + "GB");
+        //System.out.println("Skonfigurowano komputer: Procesor: " + processor + ", RAM: " + ram + "GB, Dysk: " + storage + "GB");
     }
 
     @Override

@@ -1,8 +1,6 @@
 package ui;
 
-import model.Customer;
-import model.Order;
-import model.Product;
+import model.*;
 import service.Cart;
 import service.OrdersProcessor;
 import service.ProductManager;
@@ -32,11 +30,12 @@ public class CommandLineInterface {
             System.out.println("Wybierz opcję:");
             System.out.println("1. Przeglądaj produkty");
             System.out.println("2. Dodaj produkt do koszyka");
-            System.out.println("3. Pokaż produkty w koszyku");
-            System.out.println("4. Złóż zamówienie");
-            System.out.println("5. Pokaż historię zamówień");
-            System.out.println("6. Usuń produkt");
-            System.out.println("7. Wyjdź");
+            System.out.println("3. Konfiguruj produkt");
+            System.out.println("4. Pokaż produkty w koszyku");
+            System.out.println("5. Złóż zamówienie");
+            System.out.println("6. Pokaż historię zamówień");
+            System.out.println("7. Usuń produkt");
+            System.out.println("8. Wyjdź");
 
             String choice = scanner.nextLine();
 
@@ -49,20 +48,23 @@ public class CommandLineInterface {
                     addProductToCart();
                     break;
                 case "3":
+                    configureProduct();
+                    break;
+                case "4":
                     System.out.println("Produkty w koszyku:");
                     cart.viewProductsInCart();
                     break;
-                case "4":
+                case "5":
                     placeOrder();
                     break;
-                case "5":
+                case "6":
                     System.out.println("Historia zamówień:");
                     cart.viewOrders();
                     break;
-                case "6":
+                case "7":
                     removeProductFromCart();
                     break;
-                case "7":
+                case "8":
                     exit = true;
                     System.out.println("Do zobaczenia!");
                     break;
@@ -128,5 +130,121 @@ public class CommandLineInterface {
 
 
     }
+
+    //pomogl chat :P
+    private void configureProduct() {
+        System.out.println("Wybierz typ produktu do skonfigurowania:");
+        System.out.println("1. Komputer");
+        System.out.println("2. Smartphone");
+
+        String productChoice = scanner.nextLine();
+
+        switch (productChoice) {
+            case "1":
+                configureComputer();
+                break;
+            case "2":
+                configureSmartphone();
+                break;
+            default:
+                System.out.println("Nieprawidłowy wybór.");
+        }
+    }
+
+    //pomogl chat
+    private void configureComputer() {
+        System.out.println("Podaj ID komputera do konfiguracji:");
+        int productId = Integer.parseInt(scanner.nextLine());
+
+        Optional<Product> product = productManager.findProductById(productId);
+        if (product.isPresent() && product.get() instanceof Computer) {
+            Computer computer = (Computer) product.get();
+
+            System.out.println("Wybierz procesor:");
+            for (Processor processor : Processor.values()) {
+                System.out.println(processor.ordinal() + 1 + ". " + processor);
+            }
+            int processorChoice = Integer.parseInt(scanner.nextLine());
+            Processor chosenProcessor = Processor.values()[processorChoice - 1];
+
+            System.out.println("Wybierz ilość RAM:");
+            for (RAM ram : RAM.values()) {
+                System.out.println(ram.ordinal() + 1 + ". " + ram);
+            }
+            int ramChoice = Integer.parseInt(scanner.nextLine());
+            RAM chosenRam = RAM.values()[ramChoice - 1];
+
+            System.out.println("Podaj rozmiar dysku (w GB):");
+            int storage = Integer.parseInt(scanner.nextLine());
+
+            computer.configureComputer(chosenProcessor, chosenRam, storage);
+            System.out.println("Komputer skonfigurowany: " + computer);
+
+            System.out.println("Czy chcesz dodać produkt do koszyka? (tak/nie)");
+            String addToCartChoice = scanner.nextLine();
+            if (addToCartChoice.equalsIgnoreCase("tak")) {
+                cart.addProductToCart(computer);
+                System.out.println("Skonfigurowany komputer został dodany do koszyka.");
+            } else {
+                System.out.println("Konfiguracja została porzucona.");
+            }
+        } else {
+            System.out.println("Produkt o podanym ID nie istnieje lub nie jest komputerem.");
+        }
+    }
+
+    //pomogl chat
+    private void configureSmartphone() {
+        System.out.println("Podaj ID smartfona do konfiguracji:");
+        int productId = Integer.parseInt(scanner.nextLine());
+
+        Optional<Product> product = productManager.findProductById(productId);
+        if (product.isPresent() && product.get() instanceof Smartphone) {
+            Smartphone smartphone = (Smartphone) product.get(); //rzutowanie product na smartphone
+
+            System.out.println("Wybierz kolor smartfona:");
+            for (Color color : Color.values()) {
+                System.out.println(color.ordinal() + 1 + ". " + color);
+            }
+            int colorChoice = Integer.parseInt(scanner.nextLine());
+            Color chosenColor = Color.values()[colorChoice - 1];
+            smartphone.setColor(chosenColor);
+
+            System.out.println("Wybierz pojemność baterii:");
+            for (BatteryCapacity batteryCapacity : BatteryCapacity.values()) {
+                System.out.println(batteryCapacity.ordinal() + 1 + ". " + batteryCapacity);
+            }
+            int batteryChoice = Integer.parseInt(scanner.nextLine());
+            BatteryCapacity chosenBattery = BatteryCapacity.values()[batteryChoice - 1];
+            smartphone.setBatteryCapacity(chosenBattery);
+
+            System.out.println("Wybierz akcesoria (wprowadź numery rozdzielone przecinkami, lub zostaw puste, aby pominąć):");
+            for (Accessories accessory : Accessories.values()) {
+                System.out.println(accessory.ordinal() + 1 + ". " + accessory);
+            }
+            String accessoriesInput = scanner.nextLine();
+            if (!accessoriesInput.isEmpty()) {
+                String[] accessoriesChoices = accessoriesInput.split(",");
+                for (String choice : accessoriesChoices) {
+                    int accessoryIndex = Integer.parseInt(choice.trim()) - 1;
+                    smartphone.addAccessory(Accessories.values()[accessoryIndex]);
+                }
+            }
+
+            System.out.println("Smartfon skonfigurowany: " + smartphone);
+
+            System.out.println("Czy chcesz dodać produkt do koszyka? (tak/nie)");
+            String addToCartChoice = scanner.nextLine();
+            if (addToCartChoice.equalsIgnoreCase("tak")) {
+                cart.addProductToCart(smartphone);
+                System.out.println("Skonfigurowany smartfon został dodany do koszyka.");
+            } else {
+                System.out.println("Konfiguracja została porzucona.");
+            }
+        } else {
+            System.out.println("Produkt o podanym ID nie istnieje lub nie jest smartfonem.");
+        }
+    }
+
 
 }

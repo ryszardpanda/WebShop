@@ -58,7 +58,10 @@ public class ProductManager {
             System.out.println("Brak produktów w sklepie.");
         }else {
             System.out.println("Lista produktów:");
-            products.forEach(Product::displayDetails);
+            products.forEach(product -> {
+                product.displayDetails();
+                System.out.println("--------------------------------------------------------");
+            });
         }
     }
 
