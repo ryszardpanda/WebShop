@@ -1,5 +1,6 @@
 package model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -8,7 +9,7 @@ public class Order {
     private String orderId;
     private Customer customer;
     private List<Product> orders;
-    private double totalAmount;
+    private BigDecimal totalAmount;
     private LocalDateTime orderTime;
 
     public Order(Customer customer, List<Product> orders) {
@@ -19,10 +20,10 @@ public class Order {
         this.orderTime = LocalDateTime.now();
     }
 
-    private double calculateTotalAmount(){
+    private BigDecimal calculateTotalAmount(){
         return orders.stream()
-                .mapToDouble(Product::getPrice)
-                .sum();
+                .map(Product::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public List<Product> getProducts() {
@@ -41,7 +42,7 @@ public class Order {
         return orders;
     }
 
-    public double getTotalAmount() {
+    public BigDecimal getTotalAmount() {
         return totalAmount;
     }
 

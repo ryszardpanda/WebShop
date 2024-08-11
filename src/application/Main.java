@@ -6,6 +6,7 @@ import service.OrdersProcessor;
 import service.ProductManager;
 import ui.CommandLineInterface;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 public class Main {
@@ -13,35 +14,46 @@ public class Main {
 
         ProductManager productManager = new ProductManager();
         Cart cart = new Cart();
-        Customer customer1 = new Customer("Jarek Talarek", "talarek@op.pl", "ul. Przykładowa 10, 00-001 Warszawa");
+     //   Customer customer1 = new Customer("Jarek Talarek", "talarek@op.pl", "ul. Przykładowa 10, 00-001 Warszawa");
         OrdersProcessor ordersProcessor = new OrdersProcessor();
 
 
-        Computer computer = new Computer(1, "Laptop", 3000.00, 10);
+        Computer computer = new Computer(1, "Laptop", new BigDecimal(3000), 10);
         computer.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
 
 
-        Smartphone smartphone = new Smartphone(2, "Smartphone", 1200.00, 20);
+
+        Smartphone smartphone = new Smartphone(2, "Nokia 3310", new BigDecimal(200), 20);
         smartphone.configureSmartphone(Color.BLACK, BatteryCapacity.BATTERY_4000MAH, Accessories.CASE);
 
 
-        Electronics electronics = new Electronics(3, "Odkurzacz", 300, 10);
-        electronics.displayDetails();
-        Computer computer1 = new Computer(1, "Laptop", 3000.00, 10);
+
+        Electronics electronics = new Electronics(3, "Odkurzacz", new BigDecimal(3000), 10);
+      //  electronics.displayDetails();
+        Computer computer1 = new Computer(1, "Laptop", new BigDecimal(3000), 10);
         computer1.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
 
 
-        Smartphone smartphone1 = new Smartphone(2, "Smartphone", 1200.00, 20);
+
+        Smartphone smartphone1 = new Smartphone(4, "IPHONE 15", new BigDecimal(5000), 20);
         smartphone1.configureSmartphone(Color.BLACK, BatteryCapacity.BATTERY_4000MAH, Accessories.CASE);
 
+        Electronics odkurzacz = new Electronics(3, "Odkurzacz", new BigDecimal(3000), 10);
 
-        Electronics odkurzacz = new Electronics(3, "Odkurzacz", 300, 10);
+        Smartphone smartphone2 = new Smartphone(4, "IPHONE 15", new BigDecimal(5000), 20);
 
 //        System.out.println("--------------------------------------------");
 //
         productManager.addProduct(computer);
         productManager.addProduct(smartphone);
         productManager.addProduct(odkurzacz);
+        productManager.addProduct(smartphone1);
+        productManager.addProduct(smartphone2);
+
+        System.out.println("Wybierz akcesoria (wprowadź numery rozdzielone przecinkami, lub zostaw puste, aby pominąć):");
+        for (Accessories accessory : Accessories.values()) {
+            System.out.println(accessory.ordinal() + 1 + ". " + accessory);
+        }
 //        System.out.println("--------------------------------------------");
 //
 //        productManager.viewProducts();

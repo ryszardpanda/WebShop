@@ -1,0 +1,11 @@
+Faktura dla zamówienia o ID: cca021db-c937-4e97-802a-f78de51e1e2f
+Godzina złożenia zamówienia: 2024-08-09T17:03:15.132086
+Adres: poziomkowa 9
+Email: romka420
+===================================
+Produkty:
+- Laptop: 3000.0 PLN
+===================================
+Łączna kwota: 3000.0 PLN
+===================================
+Dziękujemy za zakupy!

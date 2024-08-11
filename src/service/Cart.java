@@ -48,7 +48,10 @@ public class Cart {
             System.out.println("Brak produktów w koszyku.");
         }else {
             System.out.println("Lista produktów w koszyku:");
-            cart.forEach(Product::displayDetails);
+            cart.forEach(product -> {
+                        product.displayDetails();
+                System.out.println("--------------------------------------------------------");
+                    });
         }
     }
 
@@ -75,7 +78,7 @@ public class Cart {
             for (Order order : orders) {
                 System.out.println("Zamówienie złożone dnia: " + order.getOrderTime());
                 order.displayOrderDetails();
-                System.out.println("--------------------------------------------");
+                System.out.println("--------------------------------------------------------");
             }
 
         }
