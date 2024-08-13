@@ -5,6 +5,7 @@ import service.Cart;
 import service.OrdersProcessor;
 import service.ProductManager;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Scanner;
@@ -35,7 +36,8 @@ public class CommandLineInterface {
             System.out.println("5. Złóż zamówienie");
             System.out.println("6. Pokaż historię zamówień");
             System.out.println("7. Usuń produkt");
-            System.out.println("8. Wyjdź");
+            System.out.println("8. Sprawdź aktualne promocje");
+            System.out.println("9. Wyjdź");
 
             String choice = scanner.nextLine();
 
@@ -64,7 +66,11 @@ public class CommandLineInterface {
                 case "7":
                     removeProductFromCart();
                     break;
-                case "8":
+                    case "8":
+                        System.out.println("Promocje:");
+                    checkDiscount();
+                    break;
+                case "9":
                     exit = true;
                     System.out.println("Do zobaczenia!");
                     break;
@@ -86,7 +92,7 @@ public class CommandLineInterface {
         int productId = Integer.parseInt(scanner.nextLine());
         Optional<Product> product = productManager.findProductById(productId);
         if (product.isPresent()){
-            productManager.removeProduct(productId);
+            cart.removeProductFromCart(productId);
             System.out.println("produkt: " + product.get() + " został usunięty");
         }else {
             System.out.println("Produkt o podanym ID nie istnieje.");
@@ -100,7 +106,6 @@ public class CommandLineInterface {
         Optional<Product> product = productManager.findProductById(productId);
         if (product.isPresent()) {
             cart.addProductToCart(product.get());
-            System.out.println("Produkt został dodany do koszyka.");
         } else {
             System.out.println("Produkt o podanym ID nie istnieje.");
         }
@@ -244,6 +249,11 @@ public class CommandLineInterface {
         } else {
             System.out.println("Produkt o podanym ID nie istnieje lub nie jest smartfonem.");
         }
+    }
+
+    public void checkDiscount (){
+        System.out.println("Zyskaj 10% zniżki przy zakupach za minimum 5000zł");
+        System.out.println("Zyskaj 5% zniżki przy zakupach za minimum 3000zł");
     }
 
 

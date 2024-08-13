@@ -1,5 +1,7 @@
 package model;
 
+import service.Cart;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,6 +13,7 @@ public class Order {
     private List<Product> orders;
     private BigDecimal totalAmount;
     private LocalDateTime orderTime;
+    private Cart cart;
 
     public Order(Customer customer, List<Product> orders) {
         this.orderId = UUID.randomUUID().toString();
@@ -21,9 +24,19 @@ public class Order {
     }
 
     private BigDecimal calculateTotalAmount(){
-        return orders.stream()
+        BigDecimal totalAmount = orders.stream()
                 .map(Product::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        if (totalAmount.compareTo(BigDecimal.valueOf(5000)) > 0) {
+            System.out.println("Zastosowano zniżkę 10% na całkowitą kwotę powyżej 5000 zł.");
+            totalAmount = totalAmount.multiply(BigDecimal.valueOf(0.90)); // 10% discount
+        } else if (totalAmount.compareTo(BigDecimal.valueOf(3000)) > 0) {
+            System.out.println("Zastosowano zniżkę 5% na całkowitą kwotę powyżej 3000 zł.");
+            totalAmount = totalAmount.multiply(BigDecimal.valueOf(0.95)); // 5% discount
+        }
+
+        return totalAmount;
     }
 
     public List<Product> getProducts() {

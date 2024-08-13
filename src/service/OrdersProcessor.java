@@ -22,6 +22,9 @@ public class OrdersProcessor {
             PrintWriter writer = new PrintWriter(new FileWriter(invoiceFileName));
             writer.println("Faktura dla zamówienia o ID: " + order.getOrderId());
             writer.println("Godzina złożenia zamówienia: "+ order.getOrderTime());
+            writer.println("===================================");
+            writer.println("Szczegóły klienta:");
+            writer.println("Imie: " + order.getCustomer().getName());
             writer.println("Adres: " + order.getCustomer().getAdress());
             writer.println("Email: " + order.getCustomer().getEmail());
             writer.println("===================================");
@@ -31,7 +34,7 @@ public class OrdersProcessor {
                 writer.println("- " + product.getName() + ": " + product.getPrice() + " PLN");
             }
             writer.println("===================================");
-            writer.println("Łączna kwota: " + order.getTotalAmount() + " PLN");
+            writer.println("Łączna kwota ze zniżkami: " + order.getTotalAmount() + " PLN");
             writer.println("===================================");
             writer.println("Dziękujemy za zakupy!");
 

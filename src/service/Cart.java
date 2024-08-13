@@ -4,6 +4,7 @@ import model.Customer;
 import model.Order;
 import model.Product;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Cart {
     public void addProductToCart(Product product){
         cart.add(product);
         System.out.println("Dodano produkt do koszyka " + product.getName());
+        System.out.println("Kwota: " + product.getPrice());
     }
 
     //usuwanie produktu z koszyka
@@ -50,13 +52,34 @@ public class Cart {
             System.out.println("Lista produktów w koszyku:");
             cart.forEach(product -> {
                         product.displayDetails();
+                BigDecimal price = product.getPrice();
+                System.out.println("Kwota: " + price);
                 System.out.println("--------------------------------------------------------");
                     });
+
+            Order tempOrder = new Order(null, new ArrayList<>(cart));
+            BigDecimal totalAmount = tempOrder.getTotalAmount();
+            System.out.println("Łączna kwota po zastosowaniu zniżki: " + totalAmount);
         }
+    }
+
+    public BigDecimal calculateTotalAmount() {
+        BigDecimal totalAmount = cart.stream()
+                .map(Product::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        if (totalAmount.compareTo(BigDecimal.valueOf(5000)) > 0) {
+            totalAmount = totalAmount.multiply(BigDecimal.valueOf(0.90)); // 10% zniżki
+        } else if (totalAmount.compareTo(BigDecimal.valueOf(3000)) > 0) {
+            totalAmount = totalAmount.multiply(BigDecimal.valueOf(0.95)); // 5% zniżki
+        }
+
+        return totalAmount;
     }
 
     //składanie zamówienia
     public void placeOrder(Customer customer){
+        BigDecimal totalAmount = calculateTotalAmount();
         if (cart.isEmpty()){
             System.out.println("Koszyk jest pusty, brak możliwości złożenia zamówienia");
         }else {
