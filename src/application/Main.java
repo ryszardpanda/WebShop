@@ -21,34 +21,30 @@ public class Main {
         Computer computer = new Computer(1, "Laptop", new BigDecimal(3000), 10);
         computer.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
 
-
-
         Smartphone smartphone = new Smartphone(2, "Nokia 3310", new BigDecimal(200), 20);
         smartphone.configureSmartphone(Color.BLACK, BatteryCapacity.BATTERY_4000MAH, Accessories.CASE);
 
-
-
-        Electronics electronics = new Electronics(3, "Odkurzacz", new BigDecimal(3000), 10);
+        Electronics odkurzacz1 = new Electronics(3, "Odkurzacz", new BigDecimal(3000), 10);
       //  electronics.displayDetails();
         Computer computer1 = new Computer(1, "Laptop", new BigDecimal(3000), 10);
         computer1.configureComputer(Processor.INTEL_I7, RAM.RAM_16GB, 512);
 
-
-
-        Smartphone smartphone1 = new Smartphone(4, "IPHONE 15", new BigDecimal(5000), 20);
+        Smartphone smartphone1 = new Smartphone(5, "IPHONE 15", new BigDecimal(5000), 20);
         smartphone1.configureSmartphone(Color.BLACK, BatteryCapacity.BATTERY_4000MAH, Accessories.CASE);
 
-        Electronics odkurzacz = new Electronics(3, "Odkurzacz", new BigDecimal(3000), 10);
+        Electronics odkurzacz = new Electronics(4, "Odkurzacz", new BigDecimal(3000), 10);
 
-        Smartphone smartphone2 = new Smartphone(4, "IPHONE 15", new BigDecimal(5000), 20);
+        Smartphone smartphone2 = new Smartphone(6, "IPHONE 15", new BigDecimal(5000), 20);
 
 //        System.out.println("--------------------------------------------");
 //
         productManager.addProduct(computer);
         productManager.addProduct(smartphone);
+        productManager.addProduct(odkurzacz1);
         productManager.addProduct(odkurzacz);
         productManager.addProduct(smartphone1);
         productManager.addProduct(smartphone2);
+
 
         System.out.println("Wybierz akcesoria (wprowadź numery rozdzielone przecinkami, lub zostaw puste, aby pominąć):");
         for (Accessories accessory : Accessories.values()) {
