@@ -17,7 +17,7 @@ public class ProductManager {
     //dodawanie produktu
     public void addProduct(Product product){
         products.add(product);
-        System.out.println("Dodano produkt " + product.getName());
+        System.out.println("Dodano produkt: " + product.getName());
     }
 
     //usuwanie produktu

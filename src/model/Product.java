@@ -70,7 +70,7 @@ public class Product {
     }
 
     public void displayDetails() {
-        System.out.println("Produkt: " + name + ", Cena: " + price + " ID " + id);
+        System.out.println("Produkt: " + name + ", Cena: " + price + " ID " + id + ", ilość dostępnych egzemplarzy: " + availableQuantity );
     }
 
     @Override

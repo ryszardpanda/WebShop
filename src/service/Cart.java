@@ -22,8 +22,10 @@ public class Cart {
     }
 
     //dodawanie produktu do koszyka
-    public void addProductToCart(Product product){
-        cart.add(product);
+    public void addProductToCart(Product product, int quantity){
+        for (int i = 0; i < quantity; i++) {
+            cart.add(product);
+        }
         System.out.println("Dodano produkt do koszyka " + product.getName());
         System.out.println("Kwota: " + product.getPrice());
     }
@@ -82,15 +84,22 @@ public class Cart {
         BigDecimal totalAmount = calculateTotalAmount();
         if (cart.isEmpty()){
             System.out.println("Koszyk jest pusty, brak możliwości złożenia zamówienia");
-        }else {
+            return;
+        }
+
+        for (Product product : cart) {
+            product.setAvailableQuantity(product.getAvailableQuantity() - 1);
+        }
+
             Order order = new Order(customer, new ArrayList<>(cart));
             orders.add(order);
             order.displayOrderDetails();
             cart.clear();
+
             System.out.println("Zamówienie zostało złożonę i zapisane");
             System.out.println("Godzina złożenia zamówienia: " + order.getOrderTime());
             orderProcessor.processOrder(order);
-        }
+
     }
 
     public void viewOrders() {

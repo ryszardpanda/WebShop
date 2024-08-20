@@ -38,6 +38,8 @@ public class CommandLineInterface {
             System.out.println("7. Usuń produkt");
             System.out.println("8. Sprawdź aktualne promocje");
             System.out.println("9. Wyjdź");
+            System.out.println("--------------------------------------------------------");
+            System.out.println("10. Tryb administratora (ADMIN ONLY)");
 
             String choice = scanner.nextLine();
 
@@ -74,7 +76,10 @@ public class CommandLineInterface {
                     exit = true;
                     System.out.println("Do zobaczenia!");
                     break;
-
+                    case "10":
+                    System.out.println("Witaj w trybie administratora, podaj swoje dane");
+                    adminMode();
+                    break;
 
                 default:
                     System.out.println("Nieprawidłowa opcja, spróbuj ponownie.");
@@ -105,7 +110,17 @@ public class CommandLineInterface {
 
         Optional<Product> product = productManager.findProductById(productId);
         if (product.isPresent()) {
-            cart.addProductToCart(product.get());
+            Product selectedProduct = product.get();
+
+            System.out.println("Podaj ilość sztuk:");
+            int quantity = Integer.parseInt(scanner.nextLine());
+
+            if (quantity > selectedProduct.getAvailableQuantity()) {
+                System.out.println("Niewystarczająca ilość dostępnych produktów. Dostępna ilość: " + selectedProduct.getAvailableQuantity());
+            } else {
+                cart.addProductToCart(selectedProduct, quantity);
+                System.out.println("Dodano " + quantity + " sztuk produktu do koszyka.");
+            }
         } else {
             System.out.println("Produkt o podanym ID nie istnieje.");
         }
@@ -188,7 +203,9 @@ public class CommandLineInterface {
             System.out.println("Czy chcesz dodać produkt do koszyka? (tak/nie)");
             String addToCartChoice = scanner.nextLine();
             if (addToCartChoice.equalsIgnoreCase("tak")) {
-                cart.addProductToCart(computer);
+                System.out.println("Podaj ilość sztuk:");
+                int quantity = Integer.parseInt(scanner.nextLine());
+                cart.addProductToCart(computer, quantity);
                 System.out.println("Skonfigurowany komputer został dodany do koszyka.");
             } else {
                 System.out.println("Konfiguracja została porzucona.");
@@ -241,7 +258,9 @@ public class CommandLineInterface {
             System.out.println("Czy chcesz dodać produkt do koszyka? (tak/nie)");
             String addToCartChoice = scanner.nextLine();
             if (addToCartChoice.equalsIgnoreCase("tak")) {
-                cart.addProductToCart(smartphone);
+                System.out.println("Podaj ilość sztuk:");
+                int quantity = Integer.parseInt(scanner.nextLine());
+                cart.addProductToCart(smartphone, quantity);
                 System.out.println("Skonfigurowany smartfon został dodany do koszyka.");
             } else {
                 System.out.println("Konfiguracja została porzucona.");
@@ -255,6 +274,73 @@ public class CommandLineInterface {
         System.out.println("Zyskaj 10% zniżki przy zakupach za minimum 5000zł");
         System.out.println("Zyskaj 5% zniżki przy zakupach za minimum 3000zł");
     }
+
+
+    public void adminMode() {
+        String correctLogin = "admin1";
+        String correctPassword = "admin1";
+
+        System.out.println("Podaj login:");
+        String login = scanner.nextLine();
+        System.out.println("Podaj haslo:");
+        String password = scanner.nextLine();
+
+        if (login.equals(correctLogin) && password.equals(correctPassword)) {
+            System.out.println("Dane są poprawne:");
+            System.out.println("Wybierz operację, którą chcesz wykonać");
+            System.out.println("1. Dodaj produkt");
+            System.out.println("2. Usuń produkt");
+            System.out.println("3. Modyfikuj produkt");
+
+            String operationChoice = scanner.nextLine();
+            switch (operationChoice) {
+                case "1":
+                    System.out.println("Podaj nazwę produktu:");
+                    String productName = scanner.nextLine();
+
+                    System.out.println("Podaj ID produktu:");
+                    int productId = Integer.parseInt(scanner.nextLine());
+
+                    System.out.println("Podaj cenę produktu:");
+                    BigDecimal productPrice = new BigDecimal(scanner.nextLine());
+
+                    System.out.println("Podaj ilość dostępnych sztuk:");
+                    int productQuantity = Integer.parseInt(scanner.nextLine());
+
+                    Product newProduct = new Product(productId, productName, productPrice, productQuantity);
+
+                    productManager.addProduct(newProduct);
+                    break;
+                case "2":
+                    System.out.println("Podaj ID produktu do usunięcia:");
+                    int productIdToRemove = Integer.parseInt(scanner.nextLine());
+                     productManager.removeProduct(productIdToRemove);
+                    break;
+                case "3":
+                    System.out.println("Podaj ID produktu, który chesz zaktualizować:");
+                    int productIdToUpdate = Integer.parseInt(scanner.nextLine());
+
+                    System.out.println("Podaj zaktualizowaną nazwę:");
+                    String productNameToUpdate = scanner.nextLine();
+
+
+                    System.out.println("Podaj zamtualizowaną cenę:");
+                    BigDecimal productPriceToUpdate = new BigDecimal(scanner.nextLine());
+
+                    System.out.println("Podaj zaktualizowaną ilość sztuk:");
+                    int productQuantityToUpdate = Integer.parseInt(scanner.nextLine());
+
+                    Product updatedProduct = new Product(productIdToUpdate, productNameToUpdate, productPriceToUpdate, productQuantityToUpdate);
+                    productManager.updateProduct(productIdToUpdate, updatedProduct);
+                    break;
+                default:
+                    System.out.println("Nieprawidłowy wybór.");
+            }
+        }else {
+            System.out.println("Dane są niepoprawne");
+        }
+    }
+
 
 
 }
