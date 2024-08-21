@@ -2,9 +2,14 @@ package service;
 
 import model.Product;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.io.BufferedReader;
 
 public class ProductManager {
 
@@ -70,5 +75,53 @@ public class ProductManager {
         return products.stream()
                 .filter(product -> product.getId() == productId)
                 .findFirst();
+    }
+
+
+    //chat pomogl
+    public void saveProductsToCSV(String fileName) {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.append("ID,Nazwa,Cena,Ilość\n"); // Nagłówki kolumn
+
+            for (Product product : products) {
+                writer.append(String.valueOf(product.getId())).append(",");
+                writer.append(product.getName()).append(",");
+                writer.append(product.getPrice().toString()).append(",");
+                writer.append(String.valueOf(product.getAvailableQuantity())).append("\n");
+            }
+
+            System.out.println("Produkty zapisane do pliku CSV.");
+        } catch (IOException e) {
+            System.out.println("Błąd podczas zapisywania produktów do pliku CSV: " + e.getMessage());
+        }
+    }
+
+    //chat pomogl
+    public void loadProductsFromCSV(String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            boolean isFirstLine = true;
+
+            while ((line = reader.readLine()) != null) {
+                if (isFirstLine) {
+                    isFirstLine = false; // Pomijamy pierwszą linię (nagłówki)
+                    continue;
+                }
+
+                String[] fields = line.split(",");
+
+                int id = Integer.parseInt(fields[0]);
+                String name = fields[1];
+                BigDecimal price = new BigDecimal(fields[2]);
+                int quantity = Integer.parseInt(fields[3]);
+
+                Product product = new Product(id, name, price, quantity);
+                products.add(product);
+            }
+
+            System.out.println("Produkty załadowane z pliku CSV.");
+        } catch (IOException e) {
+            System.out.println("Błąd podczas odczytywania produktów z pliku CSV: " + e.getMessage());
+        }
     }
 }
