@@ -25,6 +25,7 @@ public class CommandLineInterface {
     }
 
     public void start() {
+        productManager.loadProductsFromCSV("products.csv");
         boolean exit = false;
         while (!exit) {
             System.out.println("\nWitaj w sklepie internetowym!");
@@ -75,6 +76,11 @@ public class CommandLineInterface {
                 case "9":
                     exit = true;
                     System.out.println("Do zobaczenia!");
+                    Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                        productManager.saveProductsToCSV("products.csv");
+                        System.out.println("Produkty zostały zapisane do pliku products.csv");
+                    }));
+
                     break;
                     case "10":
                     System.out.println("Witaj w trybie administratora, podaj swoje dane");
