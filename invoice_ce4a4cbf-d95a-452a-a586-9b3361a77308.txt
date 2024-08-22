@@ -1,0 +1,14 @@
+Faktura dla zamówienia o ID: ce4a4cbf-d95a-452a-a586-9b3361a77308
+Godzina złożenia zamówienia: 2024-08-22T23:26:17.247188
+===================================
+Szczegóły klienta:
+Imie: kamil
+Adres: makilll
+Email: kamilski
+===================================
+Produkty:
+- Laptop: 3000 PLN
+===================================
+Łączna kwota ze zniżkami: 3000 PLN
+===================================
+Dziękujemy za zakupy!
