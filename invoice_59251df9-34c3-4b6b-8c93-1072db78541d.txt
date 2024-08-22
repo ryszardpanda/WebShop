@@ -1,0 +1,15 @@
+Faktura dla zamówienia o ID: 59251df9-34c3-4b6b-8c93-1072db78541d
+Godzina złożenia zamówienia: 2024-08-22T23:27:58.194207
+===================================
+Szczegóły klienta:
+Imie: a
+Adres: m
+Email: k
+===================================
+Produkty:
+- Nokia 3310: 200 PLN
+- Nokia 3310: 200 PLN
+===================================
+Łączna kwota ze zniżkami: 400 PLN
+===================================
+Dziękujemy za zakupy!

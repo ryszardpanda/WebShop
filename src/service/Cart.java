@@ -22,7 +22,7 @@ public class Cart {
     }
 
     //dodawanie produktu do koszyka
-    public void addProductToCart(Product product, int quantity){
+    public void addProductToCart(Product product, int quantity) {
         for (int i = 0; i < quantity; i++) {
             cart.add(product);
         }
@@ -35,12 +35,12 @@ public class Cart {
         Optional<Product> productToRomove = cart.stream()
                 .filter(product -> product.getId() == productId)
                 .findFirst();
-        if (productToRomove.isPresent()){
+        if (productToRomove.isPresent()) {
             cart.remove(productToRomove.get());
             System.out.println("Usunięto produkt z koszyka: " + productToRomove.get());
             return true;
 
-        }else {
+        } else {
             System.out.println("Produkt o ID: " + productId + " nie został znaleziony w koszyku");
             return false;
         }
@@ -48,16 +48,16 @@ public class Cart {
 
     //przeglądanie  wszystkich produktów
     public void viewProductsInCart() {
-        if (cart.isEmpty()){
+        if (cart.isEmpty()) {
             System.out.println("Brak produktów w koszyku.");
-        }else {
+        } else {
             System.out.println("Lista produktów w koszyku:");
             cart.forEach(product -> {
-                        product.displayDetails();
+                product.displayDetails();
                 BigDecimal price = product.getPrice();
                 System.out.println("Kwota: " + price);
                 System.out.println("--------------------------------------------------------");
-                    });
+            });
 
             Order tempOrder = new Order(null, new ArrayList<>(cart));
             BigDecimal totalAmount = tempOrder.getTotalAmount();
@@ -80,9 +80,9 @@ public class Cart {
     }
 
     //składanie zamówienia
-    public void placeOrder(Customer customer){
+    public void placeOrder(Customer customer) {
         BigDecimal totalAmount = calculateTotalAmount();
-        if (cart.isEmpty()){
+        if (cart.isEmpty()) {
             System.out.println("Koszyk jest pusty, brak możliwości złożenia zamówienia");
             return;
         }
@@ -91,14 +91,15 @@ public class Cart {
             product.setAvailableQuantity(product.getAvailableQuantity() - 1);
         }
 
-            Order order = new Order(customer, new ArrayList<>(cart));
-            orders.add(order);
-            order.displayOrderDetails();
-            cart.clear();
+        Order order = new Order(customer, new ArrayList<>(cart));
+        orders.add(order);
+        order.displayOrderDetails();
+        cart.clear();
 
-            System.out.println("Zamówienie zostało złożonę i zapisane");
-            System.out.println("Godzina złożenia zamówienia: " + order.getOrderTime());
-            orderProcessor.processOrder(order);
+        System.out.println("Zamówienie zostało złożone.");
+        System.out.println("Godzina złożenia zamówienia: " + order.getOrderTime());
+
+        orderProcessor.processOrderWithDelay(order);
 
     }
 
@@ -114,5 +115,10 @@ public class Cart {
             }
 
         }
+
+    }
+
+    public void shutdown() {
+        orderProcessor.shutdown();
     }
 }

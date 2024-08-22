@@ -1,0 +1,14 @@
+Faktura dla zamówienia o ID: 07239ae4-3181-43aa-8ea1-1a0dbe1d83d7
+Godzina złożenia zamówienia: 2024-08-22T23:23:26.449202
+===================================
+Szczegóły klienta:
+Imie: dd
+Adres: dd
+Email: dd
+===================================
+Produkty:
+- Laptop: 3000 PLN
+===================================
+Łączna kwota ze zniżkami: 3000 PLN
+===================================
+Dziękujemy za zakupy!

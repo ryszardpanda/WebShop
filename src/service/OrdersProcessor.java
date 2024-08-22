@@ -8,20 +8,49 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class OrdersProcessor {
 
-    public void processOrder(Order order) {
-        System.out.println("Przetwarzanie zamówienia ID: " + order.getOrderId());
-        generateInvoice(order);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+    public void processOrderWithDelay(Order order) {
+        scheduler.schedule(() -> {
+            System.out.println("Zamówienie jest weryfikowane...");
+        }, 1, TimeUnit.SECONDS);
+
+        scheduler.schedule(() -> {
+            System.out.println("Zamówienie zostało potwierdzone.");
+        }, 3, TimeUnit.SECONDS);
+
+        scheduler.schedule(() -> {
+            System.out.println("Pomyślnie złożono zamówienie o ID: " + order.getOrderId());
+            generateInvoice(order);
+
+        }, 5, TimeUnit.SECONDS);
     }
-    public void generateInvoice(Order order){
+
+    public void shutdown() {
+        scheduler.shutdown();  // Wstrzymuje przyjmowanie nowych zadań
+        try {
+            if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();  // Wymusza zakończenie wszystkich zadań
+            }
+        } catch (InterruptedException e) {
+            scheduler.shutdownNow();  // Jeśli wystąpi wyjątek, wymuś zakończenie
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private void generateInvoice(Order order) {
         String invoiceFileName = "invoice_" + order.getOrderId() + ".txt";
 
-        try {
-            PrintWriter writer = new PrintWriter(new FileWriter(invoiceFileName));
+        try (PrintWriter writer = new PrintWriter(new FileWriter(invoiceFileName))) {
             writer.println("Faktura dla zamówienia o ID: " + order.getOrderId());
-            writer.println("Godzina złożenia zamówienia: "+ order.getOrderTime());
+            writer.println("Godzina złożenia zamówienia: " + order.getOrderTime());
             writer.println("===================================");
             writer.println("Szczegóły klienta:");
             writer.println("Imie: " + order.getCustomer().getName());
@@ -38,12 +67,10 @@ public class OrdersProcessor {
             writer.println("===================================");
             writer.println("Dziękujemy za zakupy!");
 
-            System.out.println("Faktura została pomyślnie wygenerowana");
-            writer.close();
+            System.out.println("Aby wygenerować fakturę, wyjdz z programu - opcja 9");
         } catch (IOException e) {
             System.out.println("Błąd podczas generowania faktury: " + e.getMessage());
         }
-
-
     }
+
 }

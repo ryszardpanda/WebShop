@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
 
 public class CommandLineInterface {
     private final ProductManager productManager;
@@ -26,8 +27,9 @@ public class CommandLineInterface {
 
     public void start() {
         productManager.loadProductsFromCSV("products.csv");
-        boolean exit = false;
-        while (!exit) {
+       // boolean exit = false;
+        boolean running = true;
+        while (running) {
             System.out.println("\nWitaj w sklepie internetowym!");
             System.out.println("Wybierz opcję:");
             System.out.println("1. Przeglądaj produkty");
@@ -74,7 +76,8 @@ public class CommandLineInterface {
                     checkDiscount();
                     break;
                 case "9":
-                    exit = true;
+                    cart.shutdown();
+                        running = false;
                     System.out.println("Do zobaczenia!");
                     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                         productManager.saveProductsToCSV("products.csv");
@@ -153,7 +156,6 @@ public class CommandLineInterface {
 
         Customer customer = new Customer(name, email, address);
         cart.placeOrder(customer);
-
 
     }
 
