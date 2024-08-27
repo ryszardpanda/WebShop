@@ -34,13 +34,13 @@ public class OrdersProcessor {
     }
 
     public void shutdown() {
-        scheduler.shutdown();  // Wstrzymuje przyjmowanie nowych zadań
+        scheduler.shutdown();
         try {
             if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
-                scheduler.shutdownNow();  // Wymusza zakończenie wszystkich zadań
+                scheduler.shutdownNow();
             }
         } catch (InterruptedException e) {
-            scheduler.shutdownNow();  // Jeśli wystąpi wyjątek, wymuś zakończenie
+            scheduler.shutdownNow();
             Thread.currentThread().interrupt();
         }
     }
