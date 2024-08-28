@@ -1,6 +1,8 @@
 package service;
 
+import model.Computer;
 import model.Product;
+import model.Smartphone;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -97,31 +99,34 @@ public class ProductManager {
     }
 
     //chat pomogl
-    public void loadProductsFromCSV(String fileName) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+    public void loadProductsFromCSV(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            boolean isFirstLine = true;
+            reader.readLine(); // Pomiń pierwszy wiersz nagłówka
 
             while ((line = reader.readLine()) != null) {
-                if (isFirstLine) {
-                    isFirstLine = false; // Pomijamy pierwszą linię (nagłówki)
-                    continue;
-                }
-
                 String[] fields = line.split(",");
 
                 int id = Integer.parseInt(fields[0]);
                 String name = fields[1];
                 BigDecimal price = new BigDecimal(fields[2]);
                 int quantity = Integer.parseInt(fields[3]);
+                String type = fields[4].trim();
 
-                Product product = new Product(id, name, price, quantity);
+                Product product;
+                if (type.equalsIgnoreCase("Computer")) {
+                    product = new Computer(id, name, price, quantity);
+                } else if (type.equalsIgnoreCase("Smartphone")) {
+                    product = new Smartphone(id, name, price, quantity);
+                } else {
+                    product = new Product(id, name, price, quantity); // Dla innych typów
+                }
+
                 products.add(product);
             }
-
-            System.out.println("Produkty załadowane z pliku CSV.");
+            System.out.println("Produkty zostały załadowane z pliku CSV.");
         } catch (IOException e) {
-            System.out.println("Błąd podczas odczytywania produktów z pliku CSV: " + e.getMessage());
+            System.out.println("Błąd podczas wczytywania pliku CSV: " + e.getMessage());
         }
     }
 }
