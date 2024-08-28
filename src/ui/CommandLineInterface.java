@@ -336,15 +336,38 @@ public class CommandLineInterface {
                     System.out.println("Podaj ilość dostępnych sztuk:");
                     int productQuantity = Integer.parseInt(scanner.nextLine());
 
-                    Product newProduct = new Product(productId, productName, productPrice, productQuantity);
+                        System.out.println("Wybierz typ produktu:");
+                        System.out.println("1. Computer");
+                        System.out.println("2. Smartphone");
+                        System.out.println("3. Inny Produkt");
 
-                    productManager.addProduct(newProduct);
+                        String typeChoice = scanner.nextLine();
+                        Product newProduct;
+
+                        switch (typeChoice) {
+                            case "1":
+                                newProduct = new Computer(productId, productName, productPrice, productQuantity);
+                                break;
+                            case "2":
+                                newProduct = new Smartphone(productId, productName, productPrice, productQuantity);
+                                break;
+                            case "3":
+                                newProduct = new Product(productId, productName, productPrice, productQuantity);
+                                break;
+                            default:
+                                System.out.println("Nieprawidłowy wybór typu produktu. Dodanie produktu przerwane.");
+                                return;
+                        }
+                        productManager.addProduct(newProduct);
+                        System.out.println("Produkt został pomyślnie dodany.");
+
                     } catch (NumberFormatException e) {
                         System.out.println("Błąd: Wprowadzono niepoprawny format liczby.");
                     } catch (Exception e) {
                         System.out.println("Wystąpił błąd podczas dodawania produktu: " + e.getMessage());
                     }
                     break;
+
                 case "2":
                     try {
                     System.out.println("Podaj ID produktu do usunięcia:");

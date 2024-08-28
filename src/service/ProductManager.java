@@ -80,25 +80,33 @@ public class ProductManager {
     }
 
 
-    //chat pomogl
     public void saveProductsToCSV(String fileName) {
         try (FileWriter writer = new FileWriter(fileName)) {
-            writer.append("ID,Nazwa,Cena,Ilość\n"); // Nagłówki kolumn
+            writer.append("ID,Nazwa,Cena,Ilość,Typ\n"); // Nagłówki kolumn
 
             for (Product product : products) {
                 writer.append(String.valueOf(product.getId())).append(",");
                 writer.append(product.getName()).append(",");
-                writer.append(product.getPrice().toString()).append(",");
-                writer.append(String.valueOf(product.getAvailableQuantity())).append("\n");
+                writer.append(product.getPrice().toString()).append(","); // BigDecimal to String
+                writer.append(String.valueOf(product.getAvailableQuantity())).append(",");
+
+                // Dodanie typu produktu, aby odpowiednio rozpoznać przy wczytywaniu
+                if (product instanceof Computer) {
+                    writer.append("Computer");
+                } else if (product instanceof Smartphone) {
+                    writer.append("Smartphone");
+                } else {
+                    writer.append("Product");
+                }
+                writer.append("\n");
             }
 
             System.out.println("Produkty zapisane do pliku CSV.");
         } catch (IOException e) {
             System.out.println("Błąd podczas zapisywania produktów do pliku CSV: " + e.getMessage());
         }
-    }
+        }
 
-    //chat pomogl
     public void loadProductsFromCSV(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
