@@ -14,14 +14,12 @@ import java.util.concurrent.CompletableFuture;
 public class CommandLineInterface {
     private final ProductManager productManager;
     private final Cart cart;
-    private final OrdersProcessor ordersProcessor;
     private final Scanner scanner;
 
 
-    public CommandLineInterface(ProductManager productManager, Cart cart, OrdersProcessor ordersProcessor) {
+    public CommandLineInterface(ProductManager productManager, Cart cart) {
         this.productManager = productManager;
         this.cart = cart;
-        this.ordersProcessor = ordersProcessor;
         this.scanner = new Scanner(System.in);
     }
 
@@ -77,17 +75,15 @@ public class CommandLineInterface {
                     break;
                 case "9":
                     try {
-                        cart.shutdown();
                         running = false;
                         System.out.println("Do zobaczenia!");
-                        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                             try {
                                 productManager.saveProductsToCSV("products.csv");
                                 System.out.println("Produkty zostały zapisane do pliku products.csv");
                             } catch (Exception e) {
                                 System.out.println("Wystąpił błąd podczas zapisywania produktów: " + e.getMessage());
                             }
-                        }));
+
                     }catch (Exception e){
                         System.out.println("Wystąpił błąd podczas zamykania programu: " + e.getMessage());
                     }
@@ -146,12 +142,10 @@ public class CommandLineInterface {
 
     private void placeOrder() {
         try {
-
             if (cart.cart.isEmpty()) {
                 System.out.println("Koszyk jest pusty, nie można złożyć zamówienia.");
                 return;
             }
-
             System.out.println("Podaj dane klienta:");
             System.out.print("Imię i nazwisko: ");
             String name = scanner.nextLine();
