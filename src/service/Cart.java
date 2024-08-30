@@ -9,16 +9,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Cart {
     public List<Product> cart;
     List<Order> orders;
-    private OrdersProcessor orderProcessor;
+
 
     public Cart() {
         this.cart = new ArrayList<>();
         this.orders = new ArrayList<>();
-        this.orderProcessor = new OrdersProcessor();
     }
 
     //dodawanie produktu do koszyka
@@ -94,12 +96,15 @@ public class Cart {
         Order order = new Order(customer, new ArrayList<>(cart));
         orders.add(order);
         order.displayOrderDetails();
-        cart.clear();
+        cart.clear(); //tutaj trzeba bedzie czyscic plik
 
         System.out.println("Zamówienie zostało złożone.");
         System.out.println("Godzina złożenia zamówienia: " + order.getOrderTime());
 
-        orderProcessor.processOrderWithDelay(order);
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+        executorService.submit(new OrdersProcessor(order));
+        executorService.shutdown();
 
     }
 
@@ -113,12 +118,10 @@ public class Cart {
                 order.displayOrderDetails();
                 System.out.println("--------------------------------------------------------");
             }
-
         }
-
     }
 
-    public void shutdown() {
-        orderProcessor.shutdown();
-    }
+//    public void shutdown() {
+//        orderProcessor.shutdown();
+//    }
 }
