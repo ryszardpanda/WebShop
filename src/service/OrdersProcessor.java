@@ -72,7 +72,7 @@ public class OrdersProcessor implements Runnable {
             writer.println("===================================");
             writer.println("Dziękujemy za zakupy!");
 
-            System.out.println("Aby wygenerować fakturę, wyjdz z programu - opcja 9");
+            System.out.println("Faktura została zapisana");
         } catch (IOException e) {
             System.out.println("Błąd podczas generowania faktury: " + e.getMessage());
         }

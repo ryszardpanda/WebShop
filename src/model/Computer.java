@@ -24,7 +24,31 @@ public class Computer extends Product {
     @Override
     public void displayDetails() {
         super.displayDetails();
-        System.out.println("Procesor: " + processor + ", RAM: " + ram + "GB, Dysk: " + storage + "GB");
+        boolean hasPrevious = false;
+        if (processor != null) {
+            System.out.print("Procesor: " + processor);
+            hasPrevious = true;
+        }
+
+        if (ram != null) {
+            if (hasPrevious) {
+                System.out.print(", ");
+            }
+            System.out.print("RAM: " + ram + "GB");
+            hasPrevious = true;
+        }
+
+        if (storage != 0) {
+            if (hasPrevious) {
+                System.out.print(", ");
+            }
+            System.out.print("Dysk: " + storage + "GB");
+            hasPrevious = true;
+        }
+
+        if (hasPrevious) {
+            System.out.println();
+        }
     }
 
     @Override

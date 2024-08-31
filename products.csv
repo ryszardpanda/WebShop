@@ -3,10 +3,11 @@ ID,Nazwa,Cena,Ilość,Typ
 2,Nokia 3310,200,5,Smartphone
 3,Odkurzacz,3000,9,Product
 4,Odkurzacz,3000,4,Product
-5,IPHONE 15,5000,12,Smartphone
+5,IPHONE 15,5000,7,Smartphone
 6,IPHONE 15,5000,20,Smartphone
 7,Czajnik,100,10,Product
 8,Myszka,50,10,Product
 9,Smartphone,1111,1,Product
 10,Samsung 20,10,10,Smartphone
 11,Myszka Logitech,100,10,Product
+12,czajnik,70,50,Product
