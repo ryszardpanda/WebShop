@@ -96,7 +96,7 @@ public class ProductManager {
                 } else if (product instanceof Smartphone) {
                     writer.append("Smartphone");
                 } else {
-                    writer.append("Product");
+                    writer.append("Electronics");
                 }
                 writer.append("\n");
             }
