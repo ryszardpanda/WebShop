@@ -18,12 +18,12 @@ public class Smartphone extends Product {
         this.accessories = new HashSet<>();
     }
 
-    public void configureSmartphone( Color color, BatteryCapacity batteryCapacity, Accessories accessories){
-        this.color = color;
-        this.batteryCapacity = batteryCapacity;
-
-      //  System.out.println("Skonfigurowano smartfon: Kolor: " + color + ", Bateria: " + batteryCapacity + ", Akcesoria: " + accessories);
-    }
+//    public void configureSmartphone( Color color, BatteryCapacity batteryCapacity, Accessories accessories){
+//        this.color = color;
+//        this.batteryCapacity = batteryCapacity;
+//
+//      //  System.out.println("Skonfigurowano smartfon: Kolor: " + color + ", Bateria: " + batteryCapacity + ", Akcesoria: " + accessories);
+//    }
 
     public void addAccessory(Accessories accessory) {
         if (accessories.contains(accessory)) {
@@ -37,7 +37,32 @@ public class Smartphone extends Product {
     @Override
     public void displayDetails() {
         super.displayDetails();
-        System.out.println("Kolor: " + color + ", Bateria: " + batteryCapacity + ", Akcesoria: " + accessories);
+        boolean hasPrevious = false;
+
+        if (color != null) {
+            System.out.print("Kolor: " + color);
+            hasPrevious = true;
+        }
+
+        if (batteryCapacity != null) {
+            if (hasPrevious) {
+                System.out.print(", ");
+            }
+            System.out.print("Bateria: " + batteryCapacity);
+            hasPrevious = true;
+        }
+
+        if (accessories != null && !accessories.isEmpty()) {
+            if (hasPrevious) {
+                System.out.print(", ");
+            }
+            System.out.print("Akcesoria: " + accessories);
+            hasPrevious = true;
+        }
+
+        if (hasPrevious) {
+            System.out.println();
+        }
     }
 
     @Override

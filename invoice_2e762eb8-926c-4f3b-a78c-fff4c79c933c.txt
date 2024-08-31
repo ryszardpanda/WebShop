@@ -1,0 +1,18 @@
+Faktura dla zamówienia o ID: 2e762eb8-926c-4f3b-a78c-fff4c79c933c
+Godzina złożenia zamówienia: 2024-08-31T08:43:27.361325
+===================================
+Szczegóły klienta:
+Imie: aa
+Adres: aaa
+Email: aaa
+===================================
+Produkty:
+- IPHONE 15: 5000 PLN
+- IPHONE 15: 5000 PLN
+- IPHONE 15: 5000 PLN
+- IPHONE 15: 5000 PLN
+- IPHONE 15: 5000 PLN
+===================================
+Łączna kwota ze zniżkami: 22500.0 PLN
+===================================
+Dziękujemy za zakupy!
