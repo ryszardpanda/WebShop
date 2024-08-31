@@ -2,14 +2,10 @@ package ui;
 
 import model.*;
 import service.Cart;
-import service.OrdersProcessor;
 import service.ProductManager;
-
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.concurrent.CompletableFuture;
 
 public class CommandLineInterface {
     private final ProductManager productManager;
@@ -183,7 +179,6 @@ public class CommandLineInterface {
         }
     }
 
-    //pomogl chat :P
     private void configureProduct() {
         while (true) {
             System.out.println("Wybierz typ produktu do skonfigurowania:");
@@ -205,12 +200,11 @@ public class CommandLineInterface {
         }
     }
 
-    //pomogl chat
+
     private void configureComputer() {
         boolean validId = false;
         Computer computer = null;
 
-        // Wybieranie komputera do konfiguracji
         while (!validId) {
             try {
                 System.out.println("Podaj ID komputera do konfiguracji:");
