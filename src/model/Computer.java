@@ -18,7 +18,7 @@ public class Computer extends Product {
         this.processor = processor;
         this.ram = ram;
         this.storage = storage;
-        //System.out.println("Skonfigurowano komputer: Procesor: " + processor + ", RAM: " + ram + "GB, Dysk: " + storage + "GB");
+
     }
 
     @Override

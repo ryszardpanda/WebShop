@@ -3,7 +3,6 @@ package service;
 import model.Computer;
 import model.Product;
 import model.Smartphone;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;

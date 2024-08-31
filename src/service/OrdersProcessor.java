@@ -2,16 +2,10 @@ package service;
 
 import model.Order;
 import model.Product;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class OrdersProcessor implements Runnable {
     private final Order order;
@@ -19,36 +13,6 @@ public class OrdersProcessor implements Runnable {
     public OrdersProcessor(Order order) {
         this.order = order;
     }
-
-
-//    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-//
-//    public void processOrderWithDelay(Order order) {
-//        scheduler.schedule(() -> {
-//            System.out.println("Zamówienie jest weryfikowane...");
-//        }, 1, TimeUnit.SECONDS);
-//
-//        scheduler.schedule(() -> {
-//            System.out.println("Zamówienie zostało potwierdzone.");
-//        }, 3, TimeUnit.SECONDS);
-//
-//        scheduler.schedule(() -> {
-//            System.out.println("Pomyślnie złożono zamówienie o ID: " + order.getOrderId());
-//            generateInvoice(order);
-//        }, 5, TimeUnit.SECONDS);
-//    }
-//
-//    public void shutdown() {
-//        scheduler.shutdown();
-//        try {
-//            if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
-//                scheduler.shutdownNow();
-//            }
-//        } catch (InterruptedException e) {
-//            scheduler.shutdownNow();
-//            Thread.currentThread().interrupt();
-//        }
-//    }
 
     private void generateInvoice(Order order) {
         String invoiceFileName = "invoice_" + order.getOrderId() + ".txt";
