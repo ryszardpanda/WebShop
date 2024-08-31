@@ -25,7 +25,6 @@ public class CommandLineInterface {
 
     public void start() {
         productManager.loadProductsFromCSV("products.csv");
-       // boolean exit = false;
         boolean running = true;
         while (running) {
             System.out.println("\nWitaj w sklepie internetowym!");
@@ -100,8 +99,16 @@ public class CommandLineInterface {
     }
 
     public void removeProductFromCart(){
-        System.out.println("Podaj ID produktu, który chcesz usunąć z koszyka:");
-        int productId = Integer.parseInt(scanner.nextLine());
+        int productId;
+        while (true){
+            try {
+                System.out.println("Podaj ID produktu, który chcesz usunąć z koszyka:");
+                productId = Integer.parseInt(scanner.nextLine());
+                break;
+            }catch (NumberFormatException e){
+                System.out.println("Błąd: Wprowadzono niepoprawny format ilości. Wprowadź liczbę całkowitą.");
+            }
+        }
         Optional<Product> product = productManager.findProductById(productId);
         if (product.isPresent()){
             cart.removeProductFromCart(productId);
@@ -112,15 +119,31 @@ public class CommandLineInterface {
 
     private void addProductToCart() {
         try {
-            System.out.println("Podaj ID produktu, który chcesz dodać do koszyka:");
-            int productId = Integer.parseInt(scanner.nextLine());
+            int productId;
+            while (true){
+                try {
+                    System.out.println("Podaj ID produktu, który chcesz dodać do koszyka:");
+                    productId = Integer.parseInt(scanner.nextLine());
+                    break;
+                }catch (NumberFormatException e) {
+                    System.out.println("Błąd: Wprowadzono niepoprawny format ilości. Wprowadź liczbę całkowitą.");
+                }
+            }
 
             Optional<Product> product = productManager.findProductById(productId);
             if (product.isPresent()) {
                 Product selectedProduct = product.get();
 
-                System.out.println("Podaj ilość sztuk:");
-                int quantity = Integer.parseInt(scanner.nextLine());
+                int quantity;
+                while (true) {
+                    try {
+                        System.out.println("Podaj ilość sztuk:");
+                        quantity = Integer.parseInt(scanner.nextLine());
+                        break;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Błąd: Wprowadzono niepoprawny format ilości. Wprowadź liczbę całkowitą.");
+                    }
+                }
 
                 if (quantity > selectedProduct.getAvailableQuantity()) {
                     System.out.println("Niewystarczająca ilość dostępnych produktów. Dostępna ilość: " + selectedProduct.getAvailableQuantity());
@@ -196,7 +219,7 @@ public class CommandLineInterface {
                 Optional<Product> product = productManager.findProductById(productId);
                 if (product.isPresent() && product.get() instanceof Computer) {
                     computer = (Computer) product.get();
-                    validId = true; // Poprawne ID komputera
+                    validId = true;
                 } else {
                     System.out.println("Produkt o podanym ID nie istnieje lub nie jest komputerem. Spróbuj ponownie.");
                 }
@@ -418,17 +441,40 @@ public class CommandLineInterface {
             switch (operationChoice) {
                 case "1":
                     try {
-                    System.out.println("Podaj nazwę produktu:");
-                    String productName = scanner.nextLine();
+                        System.out.println("Podaj nazwę produktu:");
+                        String productName = scanner.nextLine();
+                        int productId;
+                        while (true) {
+                            try {
+                                System.out.println("Podaj ID produktu:");
+                                productId = Integer.parseInt(scanner.nextLine());
+                                break;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Błąd: Wprowadzono niepoprawny format ID. Wprowadź liczbę całkowitą.");
+                            }
+                        }
 
-                    System.out.println("Podaj ID produktu:");
-                    int productId = Integer.parseInt(scanner.nextLine());
+                        BigDecimal productPrice;
+                        while (true) {
+                            try {
+                                System.out.println("Podaj cenę produktu:");
+                                productPrice = new BigDecimal(scanner.nextLine());
+                                break; //
+                            } catch (NumberFormatException e) {
+                                System.out.println("Błąd: Wprowadzono niepoprawny format ceny. Wprowadź poprawną wartość liczbową.");
+                            }
+                        }
 
-                    System.out.println("Podaj cenę produktu:");
-                    BigDecimal productPrice = new BigDecimal(scanner.nextLine());
-
-                    System.out.println("Podaj ilość dostępnych sztuk:");
-                    int productQuantity = Integer.parseInt(scanner.nextLine());
+                        int productQuantity;
+                        while (true) {
+                            try {
+                                System.out.println("Podaj ilość dostępnych sztuk:");
+                                productQuantity = Integer.parseInt(scanner.nextLine());
+                                break;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Błąd: Wprowadzono niepoprawny format ilości. Wprowadź liczbę całkowitą.");
+                            }
+                        }
 
                         System.out.println("Wybierz typ produktu:");
                         System.out.println("1. Computer");
@@ -463,44 +509,72 @@ public class CommandLineInterface {
                     break;
 
                 case "2":
+
                     try {
-                    System.out.println("Podaj ID produktu do usunięcia:");
-                    int productIdToRemove = Integer.parseInt(scanner.nextLine());
-                     productManager.removeProduct(productIdToRemove);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Błąd: Wprowadzono niepoprawny format liczby.");
-                    } catch (Exception e) {
-                        System.out.println("Wystąpił błąd podczas usuwania produktu: " + e.getMessage());
+                        int productIdToRemove;
+                        while (true) {
+                            try {
+                                System.out.println("Podaj ID produktu do usunięcia:");
+                                productIdToRemove = Integer.parseInt(scanner.nextLine());
+                                productManager.removeProduct(productIdToRemove);
+                                break;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Błąd: Wprowadzono niepoprawny format ID. Wprowadź liczbę całkowitą.");
+                            }
+                            break;
+                        }
+                    }catch (Exception e) {
+                        System.out.println("Wystąpił błąd podczas aktualizacji produktu: " + e.getMessage());
                     }
-                    break;
+
                 case "3":
+
                     try {
-                    System.out.println("Podaj ID produktu, który chesz zaktualizować:");
-                    int productIdToUpdate = Integer.parseInt(scanner.nextLine());
 
-                    System.out.println("Podaj zaktualizowaną nazwę:");
-                    String productNameToUpdate = scanner.nextLine();
+                        int productIdToUpdate;
+                        while (true) {
+                            try {
+                                System.out.println("Podaj ID produktu, który chesz zaktualizować:");
+                                productIdToUpdate = Integer.parseInt(scanner.nextLine());
+                                break;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Błąd: Wprowadzono niepoprawny format ID. Wprowadź liczbę całkowitą.");
+                            }
+                        }
+
+                        System.out.println("Podaj zaktualizowaną nazwę:");
+                        String productNameToUpdate = scanner.nextLine();
 
 
-                    System.out.println("Podaj zamtualizowaną cenę:");
-                    BigDecimal productPriceToUpdate = new BigDecimal(scanner.nextLine());
+                        BigDecimal productPriceToUpdate;
+                        while (true) {
+                            try {
+                                System.out.println("Podaj zaktualizowaną cenę:");
+                                productPriceToUpdate = new BigDecimal(scanner.nextLine());
+                                break; //
+                            } catch (NumberFormatException e) {
+                                System.out.println("Błąd: Wprowadzono niepoprawny format ceny. Wprowadź poprawną wartość liczbową.");
+                            }
+                        }
 
-                    System.out.println("Podaj zaktualizowaną ilość sztuk:");
-                    int productQuantityToUpdate = Integer.parseInt(scanner.nextLine());
+                        int productQuantityToUpdate;
+                        while (true) {
+                            try {
+                                System.out.println("Podaj zaktualizowaną ilość sztuk:");
+                                productQuantityToUpdate = Integer.parseInt(scanner.nextLine());
+                                break;
+                            } catch (NumberFormatException e) {
+                                System.out.println("Błąd: Wprowadzono niepoprawny format ilości. Wprowadź liczbę całkowitą.");
+                            }
+                        }
 
-                    Product updatedProduct = new Product(productIdToUpdate, productNameToUpdate, productPriceToUpdate, productQuantityToUpdate);
-                    productManager.updateProduct(productIdToUpdate, updatedProduct);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Błąd: Wprowadzono niepoprawny format liczby.");
+                        Product updatedProduct = new Product(productIdToUpdate, productNameToUpdate, productPriceToUpdate, productQuantityToUpdate);
+                        productManager.updateProduct(productIdToUpdate, updatedProduct);
+                        System.out.println("Produkt został pomyślnie zaktualizowany.");
                     } catch (Exception e) {
                         System.out.println("Wystąpił błąd podczas aktualizacji produktu: " + e.getMessage());
                     }
-                    break;
-                default:
-                    System.out.println("Nieprawidłowy wybór.");
             }
-        } else {
-            System.out.println("Dane są niepoprawne, spróbuj ponownie");
         }
     }
 }
