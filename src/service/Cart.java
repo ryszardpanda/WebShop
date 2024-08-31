@@ -121,7 +121,4 @@ public class Cart {
         }
     }
 
-//    public void shutdown() {
-//        orderProcessor.shutdown();
-//    }
 }

@@ -388,13 +388,24 @@ public class CommandLineInterface {
 
 
     public void adminMode() {
+
         String correctLogin = "admin1";
         String correctPassword = "admin1";
 
-        System.out.println("Podaj login:");
-        String login = scanner.nextLine();
-        System.out.println("Podaj haslo:");
-        String password = scanner.nextLine();
+        String login;
+        String password;
+
+        do {
+            System.out.println("Podaj login:");
+            login = scanner.nextLine();
+            System.out.println("Podaj haslo:");
+            password = scanner.nextLine();
+
+            if (!login.equals(correctLogin) || !password.equals(correctPassword)) {
+                System.out.println("Dane są niepoprawne, spróbuj ponownie");
+            }
+        } while (!login.equals(correctLogin) || !password.equals(correctPassword));
+
 
         if (login.equals(correctLogin) && password.equals(correctPassword)) {
             System.out.println("Dane są poprawne:");
@@ -422,7 +433,7 @@ public class CommandLineInterface {
                         System.out.println("Wybierz typ produktu:");
                         System.out.println("1. Computer");
                         System.out.println("2. Smartphone");
-                        System.out.println("3. Inny Produkt");
+                        System.out.println("3. Inny Produkt - Elektronika");
 
                         String typeChoice = scanner.nextLine();
                         Product newProduct;
@@ -435,7 +446,7 @@ public class CommandLineInterface {
                                 newProduct = new Smartphone(productId, productName, productPrice, productQuantity);
                                 break;
                             case "3":
-                                newProduct = new Product(productId, productName, productPrice, productQuantity);
+                                newProduct = new Electronics(productId, productName, productPrice, productQuantity);
                                 break;
                             default:
                                 System.out.println("Nieprawidłowy wybór typu produktu. Dodanie produktu przerwane.");
@@ -489,7 +500,7 @@ public class CommandLineInterface {
                     System.out.println("Nieprawidłowy wybór.");
             }
         } else {
-            System.out.println("Dane są niepoprawne");
+            System.out.println("Dane są niepoprawne, spróbuj ponownie");
         }
     }
 }
