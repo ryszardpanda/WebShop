@@ -91,4 +91,3 @@ The application handles various exceptions such as:
 
 ---
 
-Feel free to customize this `README.md` based on your specific needs and updates!
