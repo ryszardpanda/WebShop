@@ -38,7 +38,7 @@ public class OrdersProcessor implements Runnable {
 
             System.out.println("Faktura została zapisana");
         } catch (IOException e) {
-            System.out.println("Błąd podczas generowania faktury: " + e.getMessage());
+            throw new GenerateInvoiceException("Błąd podczas generowania faktury: " + e.getMessage());
         }
     }
 
