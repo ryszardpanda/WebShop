@@ -53,7 +53,7 @@ public class ProductManager {
 
             System.out.println("Zaktualizowano produkt: " + updatedProduct);
             return true;
-        }else
+        }
             System.out.println("Produkt o Id " + productId + " nie został znaleziony");
         return false;
     }
@@ -62,13 +62,13 @@ public class ProductManager {
     public void viewProducts() {
         if (products.isEmpty()){
             System.out.println("Brak produktów w sklepie.");
-        }else {
+            return;
+        }
             System.out.println("Lista produktów:");
             products.forEach(product -> {
                 product.displayDetails();
                 System.out.println("--------------------------------------------------------");
             });
-        }
     }
 
     //Znajdowanie produktu po ID

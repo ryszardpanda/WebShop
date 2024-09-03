@@ -55,7 +55,8 @@ public class Cart {
     public void viewProductsInCart() {
         if (cart.isEmpty()) {
             System.out.println("Brak produktów w koszyku.");
-        } else {
+            return;
+        }
             System.out.println("Lista produktów w koszyku:");
             cart.forEach(product -> {
                 product.displayDetails();
@@ -67,7 +68,6 @@ public class Cart {
             Order tempOrder = new Order(null, new ArrayList<>(cart));
             BigDecimal totalAmount = tempOrder.getTotalAmount();
             System.out.println("Łączna kwota po zastosowaniu zniżki: " + totalAmount);
-        }
     }
 
       // Zapisanie koszyka do pliku CSV
@@ -138,13 +138,13 @@ public class Cart {
     public void viewOrders() {
         if (orders.isEmpty()) {
             System.out.println("Brak złożonych zamówień.");
-        } else {
+            return;
+        }
             System.out.println("Lista złożonych zamówień:");
             for (Order order : orders) {
                 System.out.println("Zamówienie złożone dnia: " + order.getOrderTime());
                 order.displayOrderDetails();
                 System.out.println("--------------------------------------------------------");
             }
-        }
     }
 }
