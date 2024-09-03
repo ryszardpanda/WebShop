@@ -1,7 +1,4 @@
-package model;//**Typ Produktu: Komputer**
-//
-//**Specyficzna Obsługa**: Implementacja funkcji umożliwiającej konfigurację specyfikacji laptopa/komputera przed dodaniem
-// do koszyka, takiej jak wybór procesora, ilości RAM, itp.
+package model;
 
 import java.math.BigDecimal;
 
@@ -18,7 +15,6 @@ public class Computer extends Product {
         this.processor = processor;
         this.ram = ram;
         this.storage = storage;
-
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 
 public class Cart {
     public List<Product> cart;
-    List<Order> orders;
+    public List<Order> orders;
     private final String cartFilePath = "/Users/macbookpro/Desktop/java_projects/WebShop/cart.csv";
 
     public Cart() {
@@ -38,12 +38,12 @@ public class Cart {
 
     // usuwanie produktu z koszyka
     public boolean removeProductFromCart(int productId) {
-        Optional<Product> productToRomove = cart.stream()
+        Optional<Product> productToRemove = cart.stream()
                 .filter(product -> product.getId() == productId)
                 .findFirst();
-        if (productToRomove.isPresent()) {
-            cart.remove(productToRomove.get());
-            System.out.println("Usunięto produkt z koszyka: " + productToRomove.get());
+        if (productToRemove.isPresent()) {
+            cart.remove(productToRemove.get());
+            System.out.println("Usunięto produkt z koszyka: " + productToRemove.get());
             saveCartToCSV(); // Zapisz zmiany w koszyku
             return true;
         } else {

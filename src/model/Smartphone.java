@@ -1,8 +1,4 @@
-package model;//**Typ Produktu: Smartfon**
-//
-//Specyficzna Obsługa: Dodanie funkcji umożliwiającej wybór koloru, pojemności baterii,
-// oraz dodatkowych akcesoriów przy zakupie smartfona.
-//
+package model;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -17,13 +13,6 @@ public class Smartphone extends Product {
         super(id, name, price, availableQuantity);
         this.accessories = new HashSet<>();
     }
-
-//    public void configureSmartphone( Color color, BatteryCapacity batteryCapacity, Accessories accessories){
-//        this.color = color;
-//        this.batteryCapacity = batteryCapacity;
-//
-//      //  System.out.println("Skonfigurowano smartfon: Kolor: " + color + ", Bateria: " + batteryCapacity + ", Akcesoria: " + accessories);
-//    }
 
     public void addAccessory(Accessories accessory) {
         if (accessories.contains(accessory)) {
