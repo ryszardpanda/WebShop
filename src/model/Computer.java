@@ -1,7 +1,4 @@
-package model;//**Typ Produktu: Komputer**
-//
-//**Specyficzna Obsługa**: Implementacja funkcji umożliwiającej konfigurację specyfikacji laptopa/komputera przed dodaniem
-// do koszyka, takiej jak wybór procesora, ilości RAM, itp.
+package model;
 
 import java.math.BigDecimal;
 
@@ -18,37 +15,12 @@ public class Computer extends Product {
         this.processor = processor;
         this.ram = ram;
         this.storage = storage;
-
     }
 
     @Override
     public void displayDetails() {
         super.displayDetails();
-        boolean hasPrevious = false;
-        if (processor != null) {
-            System.out.print("Procesor: " + processor);
-            hasPrevious = true;
-        }
-
-        if (ram != null) {
-            if (hasPrevious) {
-                System.out.print(", ");
-            }
-            System.out.print("RAM: " + ram + "GB");
-            hasPrevious = true;
-        }
-
-        if (storage != 0) {
-            if (hasPrevious) {
-                System.out.print(", ");
-            }
-            System.out.print("Dysk: " + storage + "GB");
-            hasPrevious = true;
-        }
-
-        if (hasPrevious) {
-            System.out.println();
-        }
+        checkConfiguration();
     }
 
     @Override
@@ -59,5 +31,28 @@ public class Computer extends Product {
                 ", ram=" + ram +
                 ", storage=" + storage + "GB" +
                 '}';
+    }
+
+    public void checkConfiguration() {
+        boolean hasPrevious = false;
+
+        hasPrevious = printWithComma(hasPrevious, processor != null, "Procesor: " + processor);
+        hasPrevious = printWithComma(hasPrevious, ram != null, "RAM: " + ram + "GB");
+        hasPrevious = printWithComma(hasPrevious, storage != 0, "Dysk: " + storage + "GB");
+
+        if (hasPrevious) {
+            System.out.println();
+        }
+    }
+
+    private boolean printWithComma(boolean hasPrevious, boolean condition, String text) {
+        if (condition) {
+            if (hasPrevious) {
+                System.out.print(", ");
+            }
+            System.out.print(text);
+            return true;
+        }
+        return hasPrevious;
     }
 }
