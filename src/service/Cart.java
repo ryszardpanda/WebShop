@@ -115,6 +115,12 @@ public class Cart {
             System.out.println("Koszyk jest pusty, brak możliwości złożenia zamówienia");
             return;
         }
+        for (Product product : cart) {
+           if (product.getAvailableQuantity() < 1) {
+                System.out.println("\"Nie ma wystarczającej ilości produktu \" + product.getName() + \" w magazynie. Zamówienie nie może zostać złożone.\"");
+                return;
+            }
+        }
 
         for (Product product : cart) {
             product.setAvailableQuantity(product.getAvailableQuantity() - 1);
@@ -127,7 +133,6 @@ public class Cart {
         saveCartToCSV(); // Koszyk zostaje wyczyszczony, więc zapisujemy pusty stan
         System.out.println("Zamówienie zostało złożone.");
         System.out.println("Godzina złożenia zamówienia: " + order.getOrderTime());
-
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
