@@ -135,7 +135,7 @@ public class ProductManager {
         } else if (product instanceof Smartphone) {
             return ProductType.SMARTPHONE.getTypeName();
         } else {
-            return ProductType.ELECTRONICS.getTypeName(); // Default type
+            return ProductType.ELECTRONICS.getTypeName();
         }
     }
 }
