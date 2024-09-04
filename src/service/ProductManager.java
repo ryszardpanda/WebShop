@@ -1,20 +1,16 @@
 package service;
 
-import model.Computer;
-import model.Product;
-import model.Smartphone;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import model.*;
+
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.io.BufferedReader;
 
 public class ProductManager {
 
-    List<Product> products;
+   public List<Product> products;
 
     public ProductManager() {
         this.products = new ArrayList<>();
@@ -53,7 +49,7 @@ public class ProductManager {
 
             System.out.println("Zaktualizowano produkt: " + updatedProduct);
             return true;
-        }else
+        }
             System.out.println("Produkt o Id " + productId + " nie został znaleziony");
         return false;
     }
@@ -62,13 +58,13 @@ public class ProductManager {
     public void viewProducts() {
         if (products.isEmpty()){
             System.out.println("Brak produktów w sklepie.");
-        }else {
+            return;
+        }
             System.out.println("Lista produktów:");
             products.forEach(product -> {
                 product.displayDetails();
                 System.out.println("--------------------------------------------------------");
             });
-        }
     }
 
     //Znajdowanie produktu po ID
@@ -78,38 +74,28 @@ public class ProductManager {
                 .findFirst();
     }
 
-
     public void saveProductsToCSV(String fileName) {
         try (FileWriter writer = new FileWriter(fileName)) {
-            writer.append("ID,Nazwa,Cena,Ilość,Typ\n"); // Nagłówki kolumn
+            writer.append("ID,Nazwa,Cena,Ilość,Typ\n"); // Column headers
 
             for (Product product : products) {
                 writer.append(String.valueOf(product.getId())).append(",");
                 writer.append(product.getName()).append(",");
                 writer.append(product.getPrice().toString()).append(","); // BigDecimal to String
                 writer.append(String.valueOf(product.getAvailableQuantity())).append(",");
-
-                // Dodanie typu produktu, aby odpowiednio rozpoznać przy wczytywaniu
-                if (product instanceof Computer) {
-                    writer.append("Computer");
-                } else if (product instanceof Smartphone) {
-                    writer.append("Smartphone");
-                } else {
-                    writer.append("Electronics");
-                }
-                writer.append("\n");
+                writer.append(getProductType(product)).append("\n");
             }
 
             System.out.println("Produkty zapisane do pliku CSV.");
         } catch (IOException e) {
             System.out.println("Błąd podczas zapisywania produktów do pliku CSV: " + e.getMessage());
         }
-        }
+    }
 
     public void loadProductsFromCSV(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
-            reader.readLine(); // Pomiń pierwszy wiersz nagłówka
+            reader.readLine(); // Skip header row
 
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");
@@ -118,15 +104,21 @@ public class ProductManager {
                 String name = fields[1];
                 BigDecimal price = new BigDecimal(fields[2]);
                 int quantity = Integer.parseInt(fields[3]);
-                String type = fields[4].trim();
+                String typeName = fields[4].trim();
+
+                ProductType type = ProductType.fromString(typeName);
 
                 Product product;
-                if (type.equalsIgnoreCase("Computer")) {
-                    product = new Computer(id, name, price, quantity);
-                } else if (type.equalsIgnoreCase("Smartphone")) {
-                    product = new Smartphone(id, name, price, quantity);
-                } else {
-                    product = new Product(id, name, price, quantity); // Dla innych typów
+                switch (type) {
+                    case COMPUTER:
+                        product = new Computer(id, name, price, quantity);
+                        break;
+                    case SMARTPHONE:
+                        product = new Smartphone(id, name, price, quantity);
+                        break;
+                    default:
+                        product = new Electronics(id, name, price, quantity);
+                        break;
                 }
 
                 products.add(product);
@@ -134,6 +126,16 @@ public class ProductManager {
             System.out.println("Produkty zostały załadowane z pliku CSV.");
         } catch (IOException e) {
             System.out.println("Błąd podczas wczytywania pliku CSV: " + e.getMessage());
+        }
+    }
+
+    private String getProductType(Product product) {
+        if (product instanceof Computer) {
+            return ProductType.COMPUTER.getTypeName();
+        } else if (product instanceof Smartphone) {
+            return ProductType.SMARTPHONE.getTypeName();
+        } else {
+            return ProductType.ELECTRONICS.getTypeName();
         }
     }
 }
