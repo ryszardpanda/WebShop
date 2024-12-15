@@ -200,7 +200,6 @@ public class CommandLineInterface {
         }
     }
 
-
     private void configureComputer() {
         boolean validId = false;
         Computer computer = null;

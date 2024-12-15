@@ -4,10 +4,9 @@ import model.Customer;
 import model.Order;
 import model.Product;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +16,8 @@ import java.util.concurrent.Executors;
 
 public class Cart {
     public List<Product> cart;
-    List<Order> orders;
-    private final String cartFilePath = "/Users/macbookpro/Desktop/java_projects/WebShop/cart.csv";
+    public List<Order> orders;
+    private final String cartFilePath = "resources/cart.csv";
 
     public Cart() {
         this.cart = new ArrayList<>();
@@ -38,12 +37,12 @@ public class Cart {
 
     // usuwanie produktu z koszyka
     public boolean removeProductFromCart(int productId) {
-        Optional<Product> productToRomove = cart.stream()
+        Optional<Product> productToRemove = cart.stream()
                 .filter(product -> product.getId() == productId)
                 .findFirst();
-        if (productToRomove.isPresent()) {
-            cart.remove(productToRomove.get());
-            System.out.println("Usunięto produkt z koszyka: " + productToRomove.get());
+        if (productToRemove.isPresent()) {
+            cart.remove(productToRemove.get());
+            System.out.println("Usunięto produkt z koszyka: " + productToRemove.get());
             saveCartToCSV(); // Zapisz zmiany w koszyku
             return true;
         } else {
@@ -71,24 +70,27 @@ public class Cart {
         }
     }
 
-    // Zapisanie koszyka do pliku CSV
+      // Zapisanie koszyka do pliku CSV
     private void saveCartToCSV() {
-        try (FileWriter writer = new FileWriter(cartFilePath)) {
-            for (Product product : cart) {
-                writer.append(String.valueOf(product.getId())).append(",");
-                writer.append(product.getName()).append(",");
-                writer.append(product.getPrice().toString()).append(",");
-                writer.append(String.valueOf(product.getAvailableQuantity())).append("\n");
+        try {
+            Path path = Paths.get(cartFilePath);
+            try (FileWriter writer = new FileWriter(path.toFile())) {
+                for (Product product : cart) {
+                    writer.append(String.valueOf(product.getId())).append(",");
+                    writer.append(product.getName()).append(",");
+                    writer.append(product.getPrice().toString()).append(",");
+                    writer.append(String.valueOf(product.getAvailableQuantity())).append("\n");
+                }
+                System.out.println("Koszyk został zapisany do pliku CSV.");
             }
-            System.out.println("Koszyk został zapisany do pliku CSV.");
         } catch (IOException e) {
             System.out.println("Błąd podczas zapisywania koszyka do pliku CSV: " + e.getMessage());
         }
     }
 
-    // Wczytanie koszyka z pliku CSV
     private void loadCartFromCSV() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(cartFilePath))) {
+        Path path = Paths.get(cartFilePath).toAbsolutePath();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split(",");

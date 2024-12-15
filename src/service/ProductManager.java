@@ -14,7 +14,7 @@ import java.io.BufferedReader;
 
 public class ProductManager {
 
-    List<Product> products;
+   public List<Product> products;
 
     public ProductManager() {
         this.products = new ArrayList<>();
@@ -77,7 +77,6 @@ public class ProductManager {
                 .filter(product -> product.getId() == productId)
                 .findFirst();
     }
-
 
     public void saveProductsToCSV(String fileName) {
         try (FileWriter writer = new FileWriter(fileName)) {

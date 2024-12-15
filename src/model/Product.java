@@ -1,26 +1,4 @@
-package model;////**Wymagania Biznesowe**
-////**Task 1**: Stworzenie klasy model.Product reprezentującej produkt z polami takimi jak id, nazwa, cena, ilość dostępna. - DONE
-//W sklepie internetowym sprzedawane będą produkty będące elektroniką:
-//
-//**Typ Produktu: Komputer**
-//
-//**Specyficzna Obsługa**: Implementacja funkcji umożliwiającej konfigurację specyfikacji laptopa/komputera przed dodaniem
-// do koszyka, takiej jak wybór procesora, ilości RAM, itp. - DONE
-//
-//**Typ Produktu: Smartfon**
-//
-//Specyficzna Obsługa: Dodanie funkcji umożliwiającej wybór koloru, pojemności baterii,
-// oraz dodatkowych akcesoriów przy zakupie smartfona. - DONE
-//
-//**Dla pozostałych produktów, które będą sprzedawane w sklepie typem produktu będzie po prostu:
-// model.Electronics i dla produktów o tym typie nie ma żadnej dodatkowej obsługi!!!** - DONE
-//
-//**CEL:**
-//Dostosowanie obsługi różnych typów produktów pozwala na lepsze spełnienie oczekiwań klientów.
-// Funkcje specyficzne dla każdego typu produktu mogą zwiększyć atrakcyjność sklepu i zapewnić klientom bardziej
-// spersonalizowane doświadczenie zakupowe.
-
-//DONE
+package model;
 
 import java.math.BigDecimal;
 
