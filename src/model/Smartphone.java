@@ -1,8 +1,4 @@
-package model;//**Typ Produktu: Smartfon**
-//
-//Specyficzna Obsługa: Dodanie funkcji umożliwiającej wybór koloru, pojemności baterii,
-// oraz dodatkowych akcesoriów przy zakupie smartfona.
-//
+package model;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
@@ -18,13 +14,6 @@ public class Smartphone extends Product {
         this.accessories = new HashSet<>();
     }
 
-//    public void configureSmartphone( Color color, BatteryCapacity batteryCapacity, Accessories accessories){
-//        this.color = color;
-//        this.batteryCapacity = batteryCapacity;
-//
-//      //  System.out.println("Skonfigurowano smartfon: Kolor: " + color + ", Bateria: " + batteryCapacity + ", Akcesoria: " + accessories);
-//    }
-
     public void addAccessory(Accessories accessory) {
         if (accessories.contains(accessory)) {
             System.out.println("Akcesorium " + accessory + " już jest dodane do smartfona.");
@@ -37,32 +26,7 @@ public class Smartphone extends Product {
     @Override
     public void displayDetails() {
         super.displayDetails();
-        boolean hasPrevious = false;
-
-        if (color != null) {
-            System.out.print("Kolor: " + color);
-            hasPrevious = true;
-        }
-
-        if (batteryCapacity != null) {
-            if (hasPrevious) {
-                System.out.print(", ");
-            }
-            System.out.print("Bateria: " + batteryCapacity);
-            hasPrevious = true;
-        }
-
-        if (accessories != null && !accessories.isEmpty()) {
-            if (hasPrevious) {
-                System.out.print(", ");
-            }
-            System.out.print("Akcesoria: " + accessories);
-            hasPrevious = true;
-        }
-
-        if (hasPrevious) {
-            System.out.println();
-        }
+        checkAccessories();
     }
 
     @Override
@@ -97,5 +61,28 @@ public class Smartphone extends Product {
 
     public void setAccessories(Set<Accessories> accessories) {
         this.accessories = accessories;
+    }
+
+    public void checkAccessories() {
+        boolean hasPrevious = false;
+
+        hasPrevious = printWithComma(hasPrevious, color != null, "Kolor: " + color);
+        hasPrevious = printWithComma(hasPrevious, batteryCapacity != null, "Bateria: " + batteryCapacity);
+        hasPrevious = printWithComma(hasPrevious, accessories != null && !accessories.isEmpty(), "Akcesoria: " + accessories);
+
+        if (hasPrevious) {
+            System.out.println();
+        }
+    }
+
+    private boolean printWithComma(boolean hasPrevious, boolean condition, String text) {
+        if (condition) {
+            if (hasPrevious) {
+                System.out.print(", ");
+            }
+            System.out.print(text);
+            return true;
+        }
+        return hasPrevious;
     }
 }
